@@ -771,7 +771,7 @@ Route::group(['prefix' => $prefix, 'namespace' => 'Admin', 'middleware' => ['web
             Route::group(['prefix' => 'products'], function () {
                 Route::get('/', 'ProductsController@index');
                 Route::get('/create', 'ProductsController@create');
-                Route::post('/store', 'ProductsController@store')->name('adminStoreProduct');
+                Route::post('/store', 'ProductsController@store');
                 Route::get('/{id}/edit', 'ProductsController@edit');
                 Route::post('/{id}/update', 'ProductsController@update');
                 Route::get('/{id}/delete', 'ProductsController@destroy');

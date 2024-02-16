@@ -23,8 +23,8 @@ class ForumController extends Controller
 {
     public function __construct()
     {
-        $forumsStatus = getFeaturesSettings('forums_status');
-
+//        $forumsStatus = getFeaturesSettings('forums_status');
+        $forumsStatus = 1;
         if (empty($forumsStatus) or $forumsStatus == '0') {
             abort(403);
         }
