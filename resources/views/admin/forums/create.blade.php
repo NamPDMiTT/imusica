@@ -17,8 +17,9 @@
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <form action="/admin/forums/store" method="Post">
-                                <input type="hidden" name="_token" value="ji2v1hfkFotRGX7xrKaP6pBXFEfCiqPlDVhRodzB">
+                            <form action="/admin/forums/store" method="post">
+                                @csrf
+{{--                                <input type="hidden" name="_token" value="ji2v1hfkFotRGX7xrKaP6pBXFEfCiqPlDVhRodzB">--}}
 
                                 <div class="form-group">
                                     <label class="input-label">Language</label>
@@ -40,16 +41,25 @@
                                         <input type="text" name="icon" id="icon" value="" class="form-control ">
                                         <div class="invalid-feedback"></div>
                                     </div>
+                                    @error('icon')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label>Title</label>
                                     <input type="text" name="title" class="form-control  " value="" placeholder="Title">
+                                    @error('title')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label>Description</label>
                                     <textarea type="text" name="description" rows="4" class="form-control  "></textarea>
+                                    @error('description')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">

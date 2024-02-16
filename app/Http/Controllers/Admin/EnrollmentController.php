@@ -146,6 +146,7 @@ class EnrollmentController extends Controller
         $data = $request->all();
 
         $rules = [
+            'webinar_id' => 'required',
             'user_id' => 'required|exists:users,id',
         ];
 

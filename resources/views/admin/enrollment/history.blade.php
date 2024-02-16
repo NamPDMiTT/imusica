@@ -538,14 +538,14 @@
 
 
                                     <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-                                    <li class="page-item"><a href="https://lms.rocket-soft.org/admin/enrollments/history?page=2" class="page-link">2</a></li>
-                                    <li class="page-item"><a href="https://lms.rocket-soft.org/admin/enrollments/history?page=3" class="page-link">3</a></li>
-                                    <li class="page-item"><a href="https://lms.rocket-soft.org/admin/enrollments/history?page=4" class="page-link">4</a></li>
-                                    <li class="page-item"><a href="https://lms.rocket-soft.org/admin/enrollments/history?page=5" class="page-link">5</a></li>
+                                    <li class="page-item"><a href="/admin/enrollments/history?page=2" class="page-link">2</a></li>
+                                    <li class="page-item"><a href="/admin/enrollments/history?page=3" class="page-link">3</a></li>
+                                    <li class="page-item"><a href="/admin/enrollments/history?page=4" class="page-link">4</a></li>
+                                    <li class="page-item"><a href="/admin/enrollments/history?page=5" class="page-link">5</a></li>
 
 
                                     <li class="page-item">
-                                        <a href="https://lms.rocket-soft.org/admin/enrollments/history?page=2" class="page-link" rel="next" aria-label="Next »">›</a>
+                                        <a href="/admin/enrollments/history?page=2" class="page-link" rel="next" aria-label="Next »">›</a>
                                     </li>
                                 </ul>
                             </nav>

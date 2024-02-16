@@ -89,7 +89,8 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped font-14">
-                                    <tbody><tr>
+                                    <tbody>
+                                    <tr>
                                         <th>Icon</th>
                                         <th class="text-left">Title</th>
                                         <th>Sub-forums</th>
@@ -99,103 +100,55 @@
                                         <th>Closed</th>
                                         <th>Action</th>
                                     </tr>
+                                    @foreach($forums->toArray()['data'] as $key => $forum)
+                                        <tr>
+                                            <td>
+                                                <img src="{{ asset($forum['icon']) }}"
+                                                     width="30" alt="">
+                                            </td>
+                                            <td class="text-left">
+                                                <a href="/admin/forums?subForums=6">{{ $forum['translations'][0]['title'] }}</a>
+                                            </td>
+                                            <td>
+                                                0
+                                            </td>
+                                            <td>
+                                                {{ $forum['topics_count'] }}
+                                            </td>
+                                            <td>
+                                                {{ $forum['posts_count'] }}
+                                            </td>
+                                            <td class="@if($forum['status'] == 'active') text-success @else text-danger @endif">
+                                                {{ $forum['status'] }}
+                                            </td>
+                                            <td class="@if($forum['close'] != 0) text-success @else text-danger @endif">
+                                                {{ $forum['close'] == 0 ? 'No' : 'Yes' }}
+                                            </td>
+                                            <td>
+                                                <a href="/admin/forums?subForums={{ $forum['id'] }}"
+                                                   class="btn-transparent btn-sm text-primary mr-1"
+                                                   data-toggle="tooltip" data-placement="top" title=""
+                                                   data-original-title="Forums">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
 
-                                    <tr>
-                                        <td>
-                                            <img src="/store/1/default_images/forums/icons/advertising.png" width="30" alt="">
-                                        </td>
-                                        <td class="text-left">
-                                            <a href="/admin/forums?subForums=6">Marketing</a>
-                                        </td>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>5</td>
-                                        <td>9</td>
-                                        <td>
-                                            Active
-                                        </td>
-                                        <td>
-                                            No
-                                        </td>
-                                        <td>
-                                            <a href="/admin/forums?subForums=6" class="btn-transparent btn-sm text-primary mr-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Forums">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-
-                                            <a href="/admin/forums/6/edit" class="btn-transparent btn-sm text-primary">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <button class="btn-transparent text-primary trigger--fire-modal-1" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/forums/6/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <img src="/store/1/default_images/forums/icons/love-song.png" width="30" alt="">
-                                        </td>
-                                        <td class="text-left">
-                                            <a href="/admin/forums/5/topics">Music</a>
-                                        </td>
-                                        <td>
-                                            0
-                                        </td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>
-                                            Active
-                                        </td>
-                                        <td>
-                                            No
-                                        </td>
-                                        <td>
-                                            <a href="/admin/forums/5/topics" class="btn-transparent btn-sm text-primary mr-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Topics">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-
-                                            <a href="/admin/forums/5/edit" class="btn-transparent btn-sm text-primary">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <button class="btn-transparent text-primary trigger--fire-modal-2" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/forums/5/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <img src="/store/1/default_images/forums/icons/makeup.png" width="30" alt="">
-                                        </td>
-                                        <td class="text-left">
-                                            <a href="/admin/forums?subForums=1">Lifestyle</a>
-                                        </td>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>4</td>
-                                        <td>8</td>
-                                        <td>
-                                            Active
-                                        </td>
-                                        <td>
-                                            No
-                                        </td>
-                                        <td>
-                                            <a href="/admin/forums?subForums=1" class="btn-transparent btn-sm text-primary mr-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Forums">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-
-                                            <a href="/admin/forums/1/edit" class="btn-transparent btn-sm text-primary">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <button class="btn-transparent text-primary trigger--fire-modal-3" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/forums/1/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    </tbody></table>
+                                                <a href="/admin/forums/{{ $forum['id'] }}/edit"
+                                                   class="btn-transparent btn-sm text-primary">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <button class="btn-transparent text-primary trigger--fire-modal-1"
+                                                        data-confirm="Are you sure? | Do you want to continue?"
+                                                        data-confirm-href="/admin/forums/{{ $forum['id'] }}/delete"
+                                                        data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel"
+                                                        data-toggle="tooltip" data-placement="top" title=""
+                                                        data-original-title="Delete">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
