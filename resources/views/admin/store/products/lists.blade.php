@@ -7,7 +7,7 @@
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/admin/">{{trans('admin/main.dashboard')}}</a>
                 </div>
-                <div class="breadcrumb-item">{{ $pageTitle}}</div>
+                <div class="breadcrumb-item">{{ $pageTitle }}</div>
             </div>
         </div>
 
@@ -99,7 +99,8 @@
                                 <div class="form-group">
                                     <label class="input-label">Start Date</label>
                                     <div class="input-group">
-                                        <input type="date" id="from" class="text-center form-control" name="from" value="" placeholder="Start Date">
+                                        <input type="date" id="from" class="text-center form-control" name="from"
+                                               value="" placeholder="Start Date">
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +108,8 @@
                                 <div class="form-group">
                                     <label class="input-label">End Date</label>
                                     <div class="input-group">
-                                        <input type="date" id="to" class="text-center form-control" name="to" value="" placeholder="End Date">
+                                        <input type="date" id="to" class="text-center form-control" name="to" value=""
+                                               placeholder="End Date">
                                     </div>
                                 </div>
                             </div>
@@ -140,10 +142,13 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="input-label">Seller</label>
-                                    <select name="creator_ids[]" multiple="" class="form-control search-user-select2 select2-hidden-accessible" data-placeholder="Search seller" data-select2-id="select2-data-1-zm03" tabindex="-1" aria-hidden="true">
+                                    <select name="creator_ids[]" multiple=""
+                                            class="form-control search-user-select2 select2-hidden-accessible"
+                                            data-placeholder="Search seller" data-select2-id="select2-data-1-zm03"
+                                            tabindex="-1" aria-hidden="true">
 
                                     </select>
-{{--                                    <span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-2-02g5" style="width: 267.3px;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered" id="select2-creator_ids-6k-container"></ul><span class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-describedby="select2-creator_ids-6k-container" placeholder="Search seller" style="width: 100%;"></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>--}}
+                                    {{--                                    <span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-2-02g5" style="width: 267.3px;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered" id="select2-creator_ids-6k-container"></ul><span class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-describedby="select2-creator_ids-6k-container" placeholder="Search seller" style="width: 100%;"></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>--}}
                                 </div>
                             </div>
 
@@ -190,15 +195,18 @@
                 <div class="col-12 col-md-12">
                     <div class="card">
                         <div class="card-header text-right">
-                            <a href="/admin/store/products/excel?in_house_products=true&amp;" class="btn btn-primary">Export Excel</a>
+                            <a href="/admin/store/products/excel?in_house_products=true&amp;" class="btn btn-primary">Export
+                                Excel</a>
 
-                            <a href="/admin/store/products/create?in_house_product=true" target="_blank" class="btn btn-primary ml-2">Create new product</a>
+                            <a href="/admin/store/products/create?in_house_product=true" target="_blank"
+                               class="btn btn-primary ml-2">Create new product</a>
                         </div>
 
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped font-14 ">
-                                    <tbody><tr>
+                                    <tbody>
+                                    <tr>
                                         <th>ID</th>
                                         <th class="text-left">Title</th>
                                         <th class="text-left">Creator</th>
@@ -213,283 +221,79 @@
                                         <th>Status</th>
                                         <th width="120">Actions</th>
                                     </tr>
+                                    @foreach($products->toArray()['data'] as $key => $product)
+                                        <tr class="text-center">
+                                            <td>{{ $key + 1 }}</td>
+                                            <td width="18%" class="text-left">
+                                                <a class="text-primary mt-0 mb-1 font-weight-bold"
+                                                   href="{{ $product['slug'] }}">
+                                                    {{ $product['translations'][0]['title'] }}
+                                                </a>
+                                                <div
+                                                    class="text-small">{{ $product['category']['translations'][0]['title'] ?? '' }}</div>
+                                            </td>
 
-                                    <tr class="text-center">
-                                        <td>6</td>
-                                        <td width="18%" class="text-left">
-                                            <a class="text-primary mt-0 mb-1 font-weight-bold" href="https://lms.rocket-soft.org/products/Where-the-Crawdads-Sing-e-book">Where the Crawdads Sing e-book</a>
-                                            <div class="text-small">e-book</div>
-                                        </td>
+                                            <td class="text-left">{{ $product['creator']['full_name'] }}</td>
 
-                                        <td class="text-left">Admin</td>
+                                            <td>
+                                                {{ $product['type'] }}
+                                            </td>
 
-                                        <td>
-                                            Virtual
-                                        </td>
-
-                                        <td>
+                                            <td>
                                                 <span class="text-primary mt-0 mb-1 font-weight-bold">
-
-                                                    Unlimited
+                                                    {{ $product['inventory'] }}
                                                 </span>
-                                        </td>
+                                            </td>
 
-                                        <td>
-                                            $20
-                                        </td>
+                                            <td>
+                                                {{ $product['price'] }}đ
+                                            </td>
 
-                                        <td>
-                                            -
-                                        </td>
+                                            <td>
+                                                {{ $product['delivery_fee'] }}đ
+                                            </td>
 
-                                        <td>
+                                            <td>
                                                 <span class="text-primary mt-0 mb-1 font-weight-bold">
-                                                    1
+                                                    {{ $product['commission'] }}%
                                                 </span>
-                                        </td>
+                                            </td>
 
-                                        <td>$17</td>
+                                            <td>
+                                                {{ $product['price'] - ($product['price'] * $product['commission'] / 100) }}đ
+                                            </td>
 
-                                        <td class="font-12">2022 Jun 27 | 05:33</td>
+                                            <td class="font-12">{{ date("d/m/Y", $product['updated_at']) }}</td>
 
-                                        <td class="font-12">2022 Jun 27 | 05:18</td>
+                                            <td class="font-12">{{ date("d/m/Y", $product['created_at']) }}</td>
 
-                                        <td>
-                                            <div class="text-success font-600-bold">Published</div>
-                                        </td>
+                                            <td>
+                                                <div class="@if($product['status'] == 'draft') text-danger @elseif($product['status'] == 'pending') text-primary @else text-success @endif font-600-bold">{{ $product['status'] }}</div>
+                                            </td>
 
-                                        <td width="120" class="btn-sm">
+                                            <td width="120" class="btn-sm">
 
-                                            <a href="/admin/store/products/6/edit" target="_blank" class="btn-transparent btn-sm text-primary mt-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
+                                                <a href="/admin/store/products/{{ $product['id'] }}/edit" target="_blank"
+                                                   class="btn-transparent btn-sm text-primary mt-1"
+                                                   data-toggle="tooltip" data-placement="top" title=""
+                                                   data-original-title="Edit">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
 
-                                            <button class="btn-transparent text-primary btn-sm mt-1 trigger--fire-modal-1" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/store/products/6/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td>5</td>
-                                        <td width="18%" class="text-left">
-                                            <a class="text-primary mt-0 mb-1 font-weight-bold" href="https://lms.rocket-soft.org/products/Business-Software">Business Software</a>
-                                            <div class="text-small">e-book</div>
-                                        </td>
-
-                                        <td class="text-left">Robert Ransdell</td>
-
-                                        <td>
-                                            Virtual
-                                        </td>
-
-                                        <td>
-                                                <span class="text-primary mt-0 mb-1 font-weight-bold">
-
-                                                    99
-                                                </span>
-                                        </td>
-
-                                        <td>
-                                            $75
-                                        </td>
-
-                                        <td>
-                                            -
-                                        </td>
-
-                                        <td>
-                                                <span class="text-primary mt-0 mb-1 font-weight-bold">
-                                                    1
-                                                </span>
-                                        </td>
-
-                                        <td>$78.75</td>
-
-                                        <td class="font-12">2022 Jun 25 | 00:22</td>
-
-                                        <td class="font-12">2022 Jun 19 | 16:51</td>
-
-                                        <td>
-                                            <div class="text-success font-600-bold">Published</div>
-                                        </td>
-
-                                        <td width="120" class="btn-sm">
-
-                                            <a href="/admin/store/products/5/edit" target="_blank" class="btn-transparent btn-sm text-primary mt-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-
-                                            <button class="btn-transparent text-primary btn-sm mt-1 trigger--fire-modal-2" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/store/products/5/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td>4</td>
-                                        <td width="18%" class="text-left">
-                                            <a class="text-primary mt-0 mb-1 font-weight-bold" href="https://lms.rocket-soft.org/products/Sherlock-Holmes-e-book">Sherlock Holmes e-book</a>
-                                            <div class="text-small">e-book</div>
-                                        </td>
-
-                                        <td class="text-left">Ricardo dave</td>
-
-                                        <td>
-                                            Virtual
-                                        </td>
-
-                                        <td>
-                                                <span class="text-primary mt-0 mb-1 font-weight-bold">
-
-                                                    Unlimited
-                                                </span>
-                                        </td>
-
-                                        <td>
-                                            $5
-                                        </td>
-
-                                        <td>
-                                            -
-                                        </td>
-
-                                        <td>
-                                                <span class="text-primary mt-0 mb-1 font-weight-bold">
-                                                    1
-                                                </span>
-                                        </td>
-
-                                        <td>$5.25</td>
-
-                                        <td class="font-12">2022 Jun 19 | 16:35</td>
-
-                                        <td class="font-12">2022 Jun 19 | 16:06</td>
-
-                                        <td>
-                                            <div class="text-success font-600-bold">Published</div>
-                                        </td>
-
-                                        <td width="120" class="btn-sm">
-
-                                            <a href="/admin/store/products/4/edit" target="_blank" class="btn-transparent btn-sm text-primary mt-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-
-                                            <button class="btn-transparent text-primary btn-sm mt-1 trigger--fire-modal-3" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/store/products/4/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td>2</td>
-                                        <td width="18%" class="text-left">
-                                            <a class="text-primary mt-0 mb-1 font-weight-bold" href="https://lms.rocket-soft.org/products/Advanced-microscope">Advanced microscope</a>
-                                            <div class="text-small">Design Tools</div>
-                                        </td>
-
-                                        <td class="text-left">Linda Anderson</td>
-
-                                        <td>
-                                            Physical
-                                        </td>
-
-                                        <td>
-                                                <span class="text-primary mt-0 mb-1 font-weight-bold">
-
-                                                    10
-                                                </span>
-                                        </td>
-
-                                        <td>
-                                            $290
-                                        </td>
-
-                                        <td>
-                                            $10
-                                        </td>
-
-                                        <td>
-                                                <span class="text-primary mt-0 mb-1 font-weight-bold">
-                                                    1
-                                                </span>
-                                        </td>
-
-                                        <td>$314.50</td>
-
-                                        <td class="font-12">2022 Jun 25 | 01:43</td>
-
-                                        <td class="font-12">2022 Jun 19 | 04:17</td>
-
-                                        <td>
-                                            <div class="text-success font-600-bold">Published</div>
-                                        </td>
-
-                                        <td width="120" class="btn-sm">
-
-                                            <a href="/admin/store/products/2/edit" target="_blank" class="btn-transparent btn-sm text-primary mt-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-
-                                            <button class="btn-transparent text-primary btn-sm mt-1 trigger--fire-modal-4" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/store/products/2/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td>1</td>
-                                        <td width="18%" class="text-left">
-                                            <a class="text-primary mt-0 mb-1 font-weight-bold" href="https://lms.rocket-soft.org/products/Painting-tools">Painting tools</a>
-                                            <div class="text-small">Design Tools</div>
-                                        </td>
-
-                                        <td class="text-left">Robert Ransdell</td>
-
-                                        <td>
-                                            Physical
-                                        </td>
-
-                                        <td>
-                                                <span class="text-primary mt-0 mb-1 font-weight-bold">
-
-                                                    24
-                                                </span>
-                                        </td>
-
-                                        <td>
-                                            $25
-                                        </td>
-
-                                        <td>
-                                            $5
-                                        </td>
-
-                                        <td>
-                                                <span class="text-primary mt-0 mb-1 font-weight-bold">
-                                                    4
-                                                </span>
-                                        </td>
-
-                                        <td>$109.50</td>
-
-                                        <td class="font-12">2022 Jun 25 | 01:46</td>
-
-                                        <td class="font-12">2022 Jun 19 | 03:11</td>
-
-                                        <td>
-                                            <div class="text-success font-600-bold">Published</div>
-                                        </td>
-
-                                        <td width="120" class="btn-sm">
-
-                                            <a href="/admin/store/products/1/edit" target="_blank" class="btn-transparent btn-sm text-primary mt-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-
-                                            <button class="btn-transparent text-primary btn-sm mt-1 trigger--fire-modal-5" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/store/products/1/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    </tbody></table>
+                                                <button
+                                                    class="btn-transparent text-primary btn-sm mt-1 trigger--fire-modal-1"
+                                                    data-confirm="Are you sure? | Do you want to continue?"
+                                                    data-confirm-href="/admin/store/products/{{ $product['id'] }}/delete"
+                                                    data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel"
+                                                    data-toggle="tooltip" data-placement="top" title=""
+                                                    data-original-title="Delete">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
