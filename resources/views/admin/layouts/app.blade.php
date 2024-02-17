@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="/assets/admin/vendor/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="/assets/vendors/fontawesome/css/all.min.css"/>
     <link rel="stylesheet" href="/assets/default/vendors/toast/jquery.toast.min.css">
-
+    <link rel="stylesheet" href="/assets/vendors/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="/assets/default/vendors/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/assets/default/vendors/bootstrap-tagsinput/bootstrap-tagsinput.min.css">
 
     @stack('libraries_top')
 

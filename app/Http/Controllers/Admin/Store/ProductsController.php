@@ -351,7 +351,7 @@ class ProductsController extends Controller
             'category_id' => null,
             'price' => null,
             'unlimited_inventory' => false,
-            'ordering' => (!empty($data['ordering']) and $data['ordering'] == 'on'),
+            'ordering' => (!empty($data['ordering']) && $data['ordering'] == 'on'),
             'inventory' => null,
             'inventory_warning' => null,
             'delivery_fee' => null,
@@ -361,6 +361,7 @@ class ProductsController extends Controller
             'tax' => $data['tax'] ?? null,
             'commission' => $data['commission'] ?? null,
             'status' => Product::$pending,
+            'description' => $data['description'] ?? null,
             'updated_at' => time(),
             'created_at' => time(),
         ]);
