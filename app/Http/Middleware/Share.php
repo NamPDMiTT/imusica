@@ -28,9 +28,9 @@ class Share
             view()->share('authUser', $user);
 
             if (!$user->isAdmin()) {
-
+                $allNotifications = $user->getNotifications();
                 $unReadNotifications = $user->getUnReadNotifications();
-
+                view()->share('allNotifications', $allNotifications);
                 view()->share('unReadNotifications', $unReadNotifications);
             }
         }

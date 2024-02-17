@@ -1382,6 +1382,7 @@ function getNavbarLinks()
         usort($links, function ($item1, $item2) {
             return $item1['order'] <=> $item2['order'];
         });
+      
     }
 
     return $links;
@@ -1729,16 +1730,16 @@ function sendNotification($template, $options, $user_id = null, $group_id = null
                 'created_at' => time()
             ]);
 
-            if (env('APP_ENV') == 'production') {
-                $user = \App\User::where('id', $user_id)->first();
-                if (!empty($user) and !empty($user->email)) {
-                    try {
-                        \Mail::to($user->email)->send(new \App\Mail\SendNotifications(['title' => $title, 'message' => $message]));
-                    } catch (Exception $exception) {
-                        // dd($exception)
-                    }
-                }
-            }
+                // if (env('APP_ENV') == 'production') {
+                //     $user = \App\User::where('id', $user_id)->first();
+                //     if (!empty($user) and !empty($user->email)) {
+                //         try {
+                //             \Mail::to($user->email)->send(new \App\Mail\SendNotifications(['title' => $title, 'message' => $message]));
+                //         } catch (Exception $exception) {
+                //             // dd($exception)
+                //         }
+                //     }
+                // }
         }
 
         return true;
