@@ -30,10 +30,10 @@
                             <div class="table-responsive">
                                 <table class="table table-striped font-14">
                                     <tr>
-                                        <th>#</th>
+                                        <th>{{ trans('admin/main.avatar') }}</th>
                                         <th>{{ trans('admin/main.user_name') }}</th>
                                         <th>{{ trans('admin/main.rate') }}</th>
-                                        <th class="text-center">{{ trans('admin/main.content') }}</th>
+{{--                                        <th class="text-center">{{ trans('admin/main.content') }}</th>--}}
                                         <th class="text-center">{{ trans('admin/main.status') }}</th>
                                         <th>{{ trans('admin/main.created_at') }}</th>
                                         <th>{{ trans('admin/main.action') }}</th>
@@ -45,7 +45,7 @@
                                             </td>
                                             <td>{{ $testimonial->user_name }}</td>
                                             <td>{{ $testimonial->rate }}</td>
-                                            <td class="text-center" width="30%">{{ nl2br(truncate($testimonial->comment, 150, true)) }}</td>
+{{--                                            <td class="text-center" width="30%">{{ nl2br(truncate($testimonial->comment, 150, true)) }}</td>--}}
 
                                             <td class="text-center">
                                                 @if($testimonial->status == 'active')
