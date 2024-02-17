@@ -330,6 +330,7 @@ class ProductsController extends Controller
             'slug' => 'max:255|unique:products,slug',
             'seo_description' => 'required|max:255',
             'summary' => 'required',
+            'description' => 'required',
             'point' => 'nullable|integer',
             'tax' => 'nullable|integer',
             'commission' => 'nullable|integer',
@@ -359,7 +360,7 @@ class ProductsController extends Controller
             'point' => $data['point'] ?? null,
             'tax' => $data['tax'] ?? null,
             'commission' => $data['commission'] ?? null,
-            'status' => Product::$active,
+            'status' => Product::$pending,
             'description' => $data['description'] ?? null,
             'updated_at' => time(),
             'created_at' => time(),
@@ -449,7 +450,7 @@ class ProductsController extends Controller
             'productSpecifications' => $productSpecifications,
         ];
 
-        return view('admin.store.products.update', $data);
+        return view('admin.store.products.create', $data);
     }
 
     public function update(Request $request, $id)

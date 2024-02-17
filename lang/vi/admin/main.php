@@ -499,7 +499,7 @@ return [
     'verify_user' => 'Xác minh người dùng',
     'financial_approval' => 'Phê duyệt tài chính',
     'user_commission' => 'Hoa hồng nền tảng',
-    'commission' => 'Nhiệm vụ',
+    'commission' => 'Hoa hồng',
     'user_commission_placeholder' => 'Để trống để sử dụng tỷ lệ mặc định của hệ thống.',
     'offline_payment_page_title' => 'Thanh toán ngoại tuyến',
     'refund' => 'Hoàn tiền',

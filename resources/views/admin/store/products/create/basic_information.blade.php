@@ -28,7 +28,7 @@
                         class="form-control search-user-select2 @error('creator_id')  is-invalid @enderror"
                         data-search-option="except_user"
                         data-allow-clear="false"
-                        data-placeholder="{{ trans('public.search_user') }}">
+                        data-placeholder="{{ trans('admin/main.search_users') }}">
 
                     @if(!empty($product))
                         <option value="{{ $product->creator->id }}" selected>{{ $product->creator->full_name }}</option>
@@ -94,7 +94,7 @@
 
             <div class="form-group">
                 <label class="input-label">{{ trans('admin/main.tax') }}</label>
-                <input type="text" name="tax" value="{{ !empty($product) ? $product->tax : old('tax') }}" class="form-control @error('tax')  is-invalid @enderror" placeholder=""/>
+                <input type="number" name="tax" value="{{ !empty($product) ? $product->tax : old('tax') }}" class="form-control @error('tax')  is-invalid @enderror" placeholder=""/>
                 <div class="text-muted text-small mt-1">{{ trans('update.product_tax_hint') }}</div>
                 @error('tax')
                 <div class="invalid-feedback">
@@ -105,7 +105,7 @@
 
             <div class="form-group">
                 <label class="input-label">{{ trans('admin/main.commission') }}</label>
-                <input type="text" name="commission" value="{{ !empty($product) ? $product->commission : old('commission') }}" class="form-control @error('commission')  is-invalid @enderror" placeholder=""/>
+                <input type="number" name="commission" value="{{ !empty($product) ? $product->commission : old('commission') }}" class="form-control @error('commission')  is-invalid @enderror" placeholder=""/>
                 <div class="text-muted text-small mt-1">{{ trans('update.product_commission_hint') }}</div>
                 @error('commission')
                 <div class="invalid-feedback">
