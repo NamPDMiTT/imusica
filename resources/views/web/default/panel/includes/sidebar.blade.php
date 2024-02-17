@@ -61,7 +61,7 @@
         @endif
     </div>
 
-    <ul id="panel-sidebar-scroll" class="sidebar-menu pt-10 @if(!empty($authUser->userGroup)) has-user-group @endif @if(empty($getPanelSidebarSettings) or empty($getPanelSidebarSettings['background'])) without-bottom-image @endif" @if((!empty($isRtl) and $isRtl)) data-simplebar-direction="rtl" @endif>
+    <ul id="panel-sidebar-scroll" style="height: 60%" class="sidebar-menu pt-10 @if(!empty($authUser->userGroup)) has-user-group @endif @if(empty($getPanelSidebarSettings) or empty($getPanelSidebarSettings['background'])) without-bottom-image @endif" @if((!empty($isRtl) and $isRtl)) data-simplebar-direction="rtl" @endif>
 
         <li class="sidenav-item {{ (request()->is('panel')) ? 'sidenav-item-active' : '' }}">
             <a href="/panel" class="d-flex align-items-center">
@@ -651,11 +651,11 @@
         </li>
     </ul>
 
-    @if(!empty($getPanelSidebarSettings) and !empty($getPanelSidebarSettings['background']))
-        <div class="sidebar-create-class d-none d-md-block">
-            <a href="{{ !empty($getPanelSidebarSettings['link']) ? $getPanelSidebarSettings['link'] : '' }}" class="sidebar-create-class-btn d-block text-right p-5">
-                <img src="{{ !empty($getPanelSidebarSettings['background']) ? $getPanelSidebarSettings['background'] : '' }}" alt="">
-            </a>
-        </div>
-    @endif
+{{--    @if(!empty($getPanelSidebarSettings) and !empty($getPanelSidebarSettings['background']))--}}
+{{--        <div class="sidebar-create-class d-none d-md-block">--}}
+{{--            <a href="{{ !empty($getPanelSidebarSettings['link']) ? $getPanelSidebarSettings['link'] : '' }}" class="sidebar-create-class-btn d-block text-right p-5">--}}
+{{--                <img src="{{ !empty($getPanelSidebarSettings['background']) ? $getPanelSidebarSettings['background'] : '' }}" alt="">--}}
+{{--            </a>--}}
+{{--        </div>--}}
+{{--    @endif--}}
 </div>
