@@ -1,13 +1,17 @@
 @extends('admin.layouts.app')
 
+@push('libraries_top')
+
+@endpush
+
 @section('content')
     <section class="section">
         <div class="section-header">
             <h1>{{ $pageTitle }}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="/admin/">{{trans('admin/main.dashboard')}}</a>
+                <div class="breadcrumb-item active"><a href="{{ getAdminPanelUrl() }}">{{trans('admin/main.dashboard')}}</a>
                 </div>
-                <div class="breadcrumb-item">{{ $pageTitle}}</div>
+                <div class="breadcrumb-item">{{ $pageTitle }}</div>
             </div>
         </div>
 
@@ -21,10 +25,10 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Forums</h4>
+                                <h4>{{trans('update.total_forums')}}</h4>
                             </div>
                             <div class="card-body">
-                                8
+                                {{ $totalForums }}
                             </div>
                         </div>
                     </div>
@@ -37,10 +41,10 @@
 
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Topics</h4>
+                                <h4>{{trans('update.total_topics')}}</h4>
                             </div>
                             <div class="card-body">
-                                10
+                                {{ $totalTopics }}
                             </div>
                         </div>
                     </div>
@@ -54,10 +58,10 @@
 
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Posts</h4>
+                                <h4>{{trans('update.total_posts')}}</h4>
                             </div>
                             <div class="card-body">
-                                19
+                                {{ $postsCount }}
                             </div>
                         </div>
                     </div>
@@ -71,10 +75,10 @@
 
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Active Members</h4>
+                                <h4>{{trans('update.active_members')}}</h4>
                             </div>
                             <div class="card-body">
-                                13
+                                {{ $membersCount }}
                             </div>
                         </div>
                     </div>
@@ -89,71 +93,89 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped font-14">
-                                    <tbody>
                                     <tr>
-                                        <th>Icon</th>
-                                        <th class="text-left">Title</th>
-                                        <th>Sub-forums</th>
-                                        <th>Topics</th>
-                                        <th>Posts</th>
-                                        <th>Status</th>
-                                        <th>Closed</th>
-                                        <th>Action</th>
+                                        <th>{{ trans('admin/main.icon') }}</th>
+                                        <th class="text-left">{{ trans('admin/main.title') }}</th>
+                                        @if(empty(request()->get('subForums')))
+                                            <th>{{ trans('update.sub_forums') }}</th>
+                                        @endif
+                                        <th>{{ trans('update.topics') }}</th>
+                                        <th>{{ trans('site.posts') }}</th>
+                                        <th>{{ trans('admin/main.status') }}</th>
+                                        <th>{{ trans('admin/main.closed') }}</th>
+                                        <th>{{ trans('admin/main.action') }}</th>
                                     </tr>
-                                    @foreach($forums->toArray()['data'] as $key => $forum)
+                                    @foreach($forums as $forum)
+
                                         <tr>
                                             <td>
-                                                <img src="{{ asset($forum['icon']) }}"
-                                                     width="30" alt="">
+                                                <img src="{{ $forum->icon }}" width="30" alt="">
                                             </td>
                                             <td class="text-left">
-                                                <a href="/admin/forums?subForums=6">{{ $forum['translations'][0]['title'] }}</a>
+                                                @if(!empty($forum->subForums) and count($forum->subForums))
+                                                    <a href="{{ getAdminPanelUrl() }}/forums?subForums={{ $forum->id }}">{{ $forum->title }}</a>
+                                                @else
+                                                    <a href="{{ getAdminPanelUrl() }}/forums/{{ $forum->id }}/topics">{{ $forum->title }}</a>
+                                                @endif
+                                            </td>
+                                            @if(empty(request()->get('subForums')))
+                                                <td>
+                                                    @if(!empty($forum->subForums))
+                                                        {{ count($forum->subForums) }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                            @endif
+                                            <td>{{ $forum->topics_count }}</td>
+                                            <td>{{ $forum->posts_count }}</td>
+                                            <td class="@if($forum->status == 'active') text-success @elseif($forum->status == 'pending') text-primary @else text-danger @endif">
+                                                {{ trans('admin/main.'.$forum->status) }}
+                                            </td>
+                                            <td class="@if($forum->close) text-success @else text-danger @endif">
+                                                @if($forum->close)
+                                                    {{ trans('admin/main.yes') }}
+                                                @else
+                                                    {{ trans('admin/main.no') }}
+                                                @endif
                                             </td>
                                             <td>
-                                                0
-                                            </td>
-                                            <td>
-                                                {{ $forum['topics_count'] }}
-                                            </td>
-                                            <td>
-                                                {{ $forum['posts_count'] }}
-                                            </td>
-                                            <td class="@if($forum['status'] == 'active') text-success @else text-danger @endif">
-                                                {{ $forum['status'] }}
-                                            </td>
-                                            <td class="@if($forum['close'] != 0) text-success @else text-danger @endif">
-                                                {{ $forum['close'] == 0 ? 'No' : 'Yes' }}
-                                            </td>
-                                            <td>
-                                                <a href="/admin/forums?subForums={{ $forum['id'] }}"
-                                                   class="btn-transparent btn-sm text-primary mr-1"
-                                                   data-toggle="tooltip" data-placement="top" title=""
-                                                   data-original-title="Forums">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
+                                                @if(!empty($forum->subForums) and count($forum->subForums))
+                                                    <a href="{{ getAdminPanelUrl() }}/forums?subForums={{ $forum->id }}"
+                                                       class="btn-transparent btn-sm text-primary mr-1"
+                                                       data-toggle="tooltip" data-placement="top" title="{{ trans('update.forums') }}"
+                                                    >
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                @else
+                                                    @can('admin_forum_topics_lists')
+                                                        <a href="{{ getAdminPanelUrl() }}/forums/{{ $forum->id }}/topics"
+                                                           class="btn-transparent btn-sm text-primary mr-1"
+                                                           data-toggle="tooltip" data-placement="top" title="{{ trans('update.topics') }}"
+                                                        >
+                                                            <i class="fa fa-eye"></i>
+                                                        </a>
+                                                    @endcan
+                                                @endif
 
-                                                <a href="/admin/forums/{{ $forum['id'] }}/edit"
-                                                   class="btn-transparent btn-sm text-primary">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <button class="btn-transparent text-primary trigger--fire-modal-1"
-                                                        data-confirm="Are you sure? | Do you want to continue?"
-                                                        data-confirm-href="/admin/forums/{{ $forum['id'] }}/delete"
-                                                        data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel"
-                                                        data-toggle="tooltip" data-placement="top" title=""
-                                                        data-original-title="Delete">
-                                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                                </button>
+                                                @can('admin_forum_edit')
+                                                    <a href="{{ getAdminPanelUrl() }}/forums/{{ $forum->id }}/edit"
+                                                       class="btn-transparent btn-sm text-primary">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('admin_forum_delete')
+                                                    @include('admin.includes.delete_button',['url' => getAdminPanelUrl().'/forums/'.$forum->id.'/delete'])
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
 
                         <div class="card-footer text-center">
-
+                            {{ $forums->appends(request()->input())->links() }}
                         </div>
                     </div>
                 </div>
@@ -161,7 +183,3 @@
         </div>
     </section>
 @endsection
-
-@push('scripts_bottom')
-
-@endpush

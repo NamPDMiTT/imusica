@@ -325,11 +325,16 @@ class WebinarController extends Controller
         if (!empty($data['video_demo_source']) and !in_array($data['video_demo_source'], ['upload', 'youtube', 'vimeo', 'external_link'])) {
             $data['video_demo_source'] = 'upload';
         }
-
+        // check slug trùng thì báo lỗi quay trở lại
+        $slug = Webinar::makeSlug($data['title']);
+        $checkSlug = Webinar::where('slug', $slug)->first();
+        if ($checkSlug) {
+            $slug = $slug . '-' . time();
+        }
         $webinar = Webinar::create([
             'teacher_id' => $user->isTeacher() ? $user->id : (!empty($data['teacher_id']) ? $data['teacher_id'] : $user->id),
             'creator_id' => $user->id,
-            'slug' => Webinar::makeSlug($data['title']),
+            'slug' => $slug,
             'type' => $data['type'],
             'private' => (!empty($data['private']) and $data['private'] == 'on') ? true : false,
             'thumbnail' => $data['thumbnail'],

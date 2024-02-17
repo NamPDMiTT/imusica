@@ -12,7 +12,7 @@ return [
     'webinars_purchases_page_title' => 'Danh sách khóa học đã mua',
     'new_page_title' => 'Khóa học mới mới',
     'new_page_title_step' => 'Tiêu đề trang mới',
-    'webinar' => 'Đề cương',
+    'webinar' => 'Lớp học trực tuyến',
     'webinars' => 'Các khóa học',
     'class' => 'Lớp học',
     'classes' => 'Các lớp học',
@@ -45,25 +45,25 @@ return [
     'create_field_title_placeholder' => 'Nhập thông tin',
     'new_page_lead' => 'Tạo tài liệu mới',
     'page_lists_lead' => 'Danh sách các lớp học. Bạn có thể chỉnh sửa hoặc xóa bất kỳ hàng nào.',
-    
+
     'admin_webinars' => 'Quản lý lớp học',
     'admin_webinars_list' => 'Danh sách quản lý khóa học',
     'admin_webinars_create' => 'Tạo quản lý khóa học',
     'admin_webinars_edit' => 'Chỉnh sửa quản lý khóa học',
     'admin_webinars_delete' => 'Xóa quản lý khóa học',
-    
+
     'this_webinar_includes' => 'Khóa học này bao gồm:',
     'downloadable_content' => 'Nội dung có thể tải về',
     'official_certificate' => 'Chứng chỉ',
     'online_quizzes_count' => 'Bài kiểm tra trực tuyến',
     'instructor_support' => 'Hỗ trợ từ người hướng dẫn',
-    
+
     'report_this_webinar' => 'Báo cáo khóa học này',
     'webinar_specifications' => 'Thông số của khóa học',
     'specifications' => 'Thông số',
-    
+
     'search_course' => 'Nhập tiêu đề khóa học để tìm kiếm',
-    
+
     'previous' => 'Trước đó',
     'next' => 'Tiếp theo',
     'save_and_next' => 'Lưu và Tiếp tục',
@@ -72,15 +72,15 @@ return [
     'text_lesson' => 'Bài học',
     'text_lessons' => 'Bài học',
     'progress_step' => 'Tiến độ',
-    
+
     'your_reviews_successfully_submitted_and_waiting_for_admin' => 'Đánh giá của bạn đã được gửi thành công và sẽ được tải lên sau khi được phê duyệt.',
     'you_not_access_review' => 'Bạn không thể đánh giá khóa học này',
     'your_review_deleted' => 'Đánh giá đã bị xóa thành công',
-    
+
     'in_progress' => 'Đang diễn ra',
-    
+
     'success_store' => 'Mục đã được thêm thành công',
-    
+
     'sale_plans' => 'Kế hoạch về giá',
     'sale_plans_hint_1' => 'Kế hoạch giá sẽ giúp bạn tạo giá phụ thuộc vào thời gian và sức chứa cho nội dung của bạn.',
     'sale_plans_hint_2' => 'Bạn có thể tạo kế hoạch giá cho một khoảng thời gian cụ thể hoặc một số lượng học viên cụ thể cho khóa học.',

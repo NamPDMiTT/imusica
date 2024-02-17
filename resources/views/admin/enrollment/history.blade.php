@@ -3,11 +3,11 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>{{ $pageTitle }}</h1>
+            <h1>{{ trans('update.enrollment_history') }}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="/admin/">{{trans('admin/main.dashboard')}}</a>
+                <div class="breadcrumb-item active"><a href="{{ getAdminPanelUrl() }}">{{trans('admin/main.dashboard')}}</a>
                 </div>
-                <div class="breadcrumb-item">{{ $pageTitle}}</div>
+                <div class="breadcrumb-item">{{ trans('update.enrollment_history') }}</div>
             </div>
         </div>
 
@@ -20,25 +20,25 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="input-label">Search</label>
-                                    <input type="text" class="form-control" name="item_title" value="">
+                                    <label class="input-label">{{ trans('admin/main.search') }}</label>
+                                    <input type="text" class="form-control" name="item_title" value="{{ request()->get('item_title') }}">
                                 </div>
                             </div>
 
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="input-label">Start Date</label>
+                                    <label class="input-label">{{ trans('admin/main.start_date') }}</label>
                                     <div class="input-group">
-                                        <input type="date" id="fsdate" class="text-center form-control" name="from" value="" placeholder="Start Date">
+                                        <input type="date" id="fsdate" class="text-center form-control" name="from" value="{{ request()->get('from') }}" placeholder="Start Date">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="input-label">End Date</label>
+                                    <label class="input-label">{{ trans('admin/main.end_date') }}</label>
                                     <div class="input-group">
-                                        <input type="date" id="lsdate" class="text-center form-control" name="to" value="" placeholder="End Date">
+                                        <input type="date" id="lsdate" class="text-center form-control" name="to" value="{{ request()->get('to') }}" placeholder="End Date">
                                     </div>
                                 </div>
                             </div>
@@ -46,12 +46,12 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="input-label">Status</label>
-                                    <select name="status" data-plugin-selecttwo="" class="form-control populate">
-                                        <option value="">All Statuses</option>
-                                        <option value="success">Successful</option>
-                                        <option value="refund">Refund</option>
-                                        <option value="blocked">Access Blocked</option>
+                                    <label class="input-label">{{ trans('admin/main.status') }}</label>
+                                    <select name="status" data-plugin-selectTwo class="form-control populate">
+                                        <option value="">{{ trans('admin/main.all_status') }}</option>
+                                        <option value="success" @if(request()->get('status') == 'success') selected @endif>{{ trans('admin/main.success') }}</option>
+                                        <option value="refund" @if(request()->get('status') == 'refund') selected @endif>{{ trans('admin/main.refund') }}</option>
+                                        <option value="blocked" @if(request()->get('status') == 'blocked') selected @endif>{{ trans('update.access_blocked') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -59,30 +59,48 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="input-label">Course</label>
-                                    <select name="webinar_ids[]" multiple="" class="form-control search-webinar-select2 select2-hidden-accessible" data-placeholder="Search classes" data-select2-id="select2-data-5-pl1x" tabindex="-1" aria-hidden="true">
+                                    <label class="input-label">{{ trans('admin/main.class') }}</label>
+                                    <select name="webinar_ids[]" multiple="multiple" class="form-control search-webinar-select2"
+                                            data-placeholder="Search classes">
 
-                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-6-2mv4" style="width: 267.3px;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered" id="select2-webinar_ids-p9-container"></ul><span class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-describedby="select2-webinar_ids-p9-container" placeholder="Search classes" style="width: 100%;"></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                        @if(!empty($webinars) and $webinars->count() > 0)
+                                            @foreach($webinars as $webinar)
+                                                <option value="{{ $webinar->id }}" selected>{{ $webinar->title }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
 
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="input-label">Instructor</label>
-                                    <select name="teacher_ids[]" multiple="" data-search-option="just_teacher_role" class="form-control search-user-select2 select2-hidden-accessible" data-placeholder="Select an instructor" data-select2-id="select2-data-1-921v" tabindex="-1" aria-hidden="true">
+                                    <label class="input-label">{{ trans('admin/main.instructor') }}</label>
+                                    <select name="teacher_ids[]" multiple="multiple" data-search-option="just_teacher_role" class="form-control search-user-select2"
+                                            data-placeholder="{{ trans('update.search_instructor') }}">
 
-                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-2-1w2p" style="width: 267.3px;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered" id="select2-teacher_ids-ct-container"></ul><span class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-describedby="select2-teacher_ids-ct-container" placeholder="Select an instructor" style="width: 100%;"></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                        @if(!empty($teachers) and $teachers->count() > 0)
+                                            @foreach($teachers as $teacher)
+                                                <option value="{{ $teacher->id }}" selected>{{ $teacher->full_name }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
 
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="input-label">Student</label>
-                                    <select name="student_ids[]" multiple="" data-search-option="just_student_role" class="form-control search-user-select2 select2-hidden-accessible" data-placeholder="Select a student" data-select2-id="select2-data-3-rivb" tabindex="-1" aria-hidden="true">
+                                    <label class="input-label">{{ trans('admin/main.student') }}</label>
+                                    <select name="student_ids[]" multiple="multiple" data-search-option="just_student_role" class="form-control search-user-select2"
+                                            data-placeholder="{{ trans('webinars.select_student') }}">
 
-                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-4-1wbf" style="width: 267.3px;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered" id="select2-student_ids-js-container"></ul><span class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-describedby="select2-student_ids-js-container" placeholder="Select a student" style="width: 100%;"></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                        @if(!empty($students) and $students->count() > 0)
+                                            @foreach($students as $student)
+                                                <option value="{{ $student->id }}" selected>{{ $student->full_name }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
 
@@ -90,7 +108,7 @@
                             <div class="col-md-3">
                                 <div class="form-group mt-1">
                                     <label class="input-label mb-4"> </label>
-                                    <input type="submit" class="text-center btn btn-primary w-100" value="Show Results">
+                                    <input type="submit" class="text-center btn btn-primary w-100" value="{{ trans('admin/main.show_results') }}">
                                 </div>
                             </div>
                         </div>
@@ -103,453 +121,104 @@
                 <div class="col-12 col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="/admin/enrollments/export" class="btn btn-primary">Export Excel</a>
+                            @can('admin_enrollment_export')
+                                <a href="{{ getAdminPanelUrl() }}/enrollments/export" class="btn btn-primary">{{ trans('admin/main.export_xls') }}</a>
+                            @endcan
                         </div>
 
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped font-14">
-                                    <tbody><tr>
+                                    <tr>
                                         <th>#</th>
-                                        <th class="text-left">Student</th>
-                                        <th class="text-left">Instructor</th>
-                                        <th class="text-left">Item</th>
-                                        <th>Type</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th width="120">Actions</th>
+                                        <th class="text-left">{{ trans('admin/main.student') }}</th>
+                                        <th class="text-left">{{ trans('admin/main.instructor') }}</th>
+                                        <th class="text-left">{{ trans('admin/main.item') }}</th>
+                                        <th>{{ trans('admin/main.type') }}</th>
+                                        <th>{{ trans('admin/main.date') }}</th>
+                                        <th>{{ trans('admin/main.status') }}</th>
+                                        <th width="120">{{ trans('admin/main.actions') }}</th>
                                     </tr>
 
-                                    <tr>
-                                        <td>280</td>
+                                    @foreach($sales as $sale)
+                                        <tr>
+                                            <td>{{ $sale->id }}</td>
 
-                                        <td class="text-left">
-                                            Lewis Erickson
-                                            <div class="text-primary text-small font-600-bold">ID : 1045</div>
-                                        </td>
+                                            <td class="text-left">
+                                                {{ !empty($sale->buyer) ? $sale->buyer->full_name : '' }}
+                                                <div class="text-primary text-small font-600-bold">ID : {{  !empty($sale->buyer) ? $sale->buyer->id : '' }}</div>
+                                            </td>
 
-                                        <td class="text-left">
-                                            Light Moon
-                                            <div class="text-primary text-small font-600-bold">ID : 867</div>
-                                        </td>
+                                            <td class="text-left">
+                                                {{ $sale->item_seller }}
+                                                <div class="text-primary text-small font-600-bold">ID : {{  $sale->seller_id }}</div>
+                                            </td>
 
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>Effective Time Management</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2000</div>
-                                            </div>
-                                        </td>
+                                            <td class="text-left">
+                                                <div class="media-body">
+                                                    <div>{{ $sale->item_title }}</div>
+                                                    <div class="text-primary text-small font-600-bold">ID : {{ $sale->item_id }}</div>
+                                                </div>
+                                            </td>
 
-                                        <td>
+                                            <td>
                                                 <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>17 March 2023 17:27</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/280/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-1" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/280/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>278</td>
-
-                                        <td class="text-left">
-                                            Jade Harrison
-                                            <div class="text-primary text-small font-600-bold">ID : 930</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            Kate Williams
-                                            <div class="text-primary text-small font-600-bold">ID : 929</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>The Future of Energy</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2004</div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                                <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>16 March 2023 06:06</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/278/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-2" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/278/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>276</td>
-
-                                        <td class="text-left">
-                                            Lewis Erickson
-                                            <div class="text-primary text-small font-600-bold">ID : 1045</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            Jessica Wray
-                                            <div class="text-primary text-small font-600-bold">ID : 870</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>Installment and Secure Host</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2022</div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                                <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>16 March 2023 05:33</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/276/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-3" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/276/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>195</td>
-
-                                        <td class="text-left">
-                                            Robert B. Gray
-                                            <div class="text-primary text-small font-600-bold">ID : 996</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            Affogato Media
-                                            <div class="text-primary text-small font-600-bold">ID : 864</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>Active Listening: You Can Be a Great Listener</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2003</div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                                <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>25 June 2022 00:14</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/195/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-4" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/195/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>191</td>
-
-                                        <td class="text-left">
-                                            Jade Harrison
-                                            <div class="text-primary text-small font-600-bold">ID : 930</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            Kate Williams
-                                            <div class="text-primary text-small font-600-bold">ID : 929</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>New Update Features</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2010</div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                                <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>22 June 2022 01:51</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/191/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-5" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/191/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>190</td>
-
-                                        <td class="text-left">
-                                            Robert B. Gray
-                                            <div class="text-primary text-small font-600-bold">ID : 996</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            Kate Williams
-                                            <div class="text-primary text-small font-600-bold">ID : 929</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>New Update Features</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2010</div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                                <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>22 June 2022 01:25</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/190/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-6" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/190/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>189</td>
-
-                                        <td class="text-left">
-                                            Cameron Schofield
-                                            <div class="text-primary text-small font-600-bold">ID : 995</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            Kate Williams
-                                            <div class="text-primary text-small font-600-bold">ID : 929</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>New Update Features</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2010</div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                                <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>22 June 2022 00:37</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/189/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-7" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/189/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>185</td>
-
-                                        <td class="text-left">
-                                            Ricardo dave
-                                            <div class="text-primary text-small font-600-bold">ID : 1016</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            Robert Ransdell
-                                            <div class="text-primary text-small font-600-bold">ID : 1015</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>New Learning Page</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2008</div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                                <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>3 March 2022 11:55</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/185/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-8" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/185/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>184</td>
-
-                                        <td class="text-left">
-                                            Alex Pmelaa
-                                            <div class="text-primary text-small font-600-bold">ID : 1017</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            Robert Ransdell
-                                            <div class="text-primary text-small font-600-bold">ID : 1015</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>New Learning Page</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2008</div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                                <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>1 March 2022 17:33</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/184/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-9" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/184/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>183</td>
-
-                                        <td class="text-left">
-                                            Robert B. Gray
-                                            <div class="text-primary text-small font-600-bold">ID : 996</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            Robert Ransdell
-                                            <div class="text-primary text-small font-600-bold">ID : 1015</div>
-                                        </td>
-
-                                        <td class="text-left">
-                                            <div class="media-body">
-                                                <div>New Learning Page</div>
-                                                <div class="text-primary text-small font-600-bold">ID : 2008</div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                                <span class="font-weight-bold">
-                                                                                                            Normal Purchase
-                                                                                                    </span>
-                                        </td>
-
-                                        <td>1 March 2022 17:33</td>
-
-                                        <td>
-                                            <span class="text-success">Successful</span>
-                                        </td>
-
-                                        <td>
-                                            <a href="/admin/financial/sales/183/invoice" target="_blank" title="Invoice"><i class="fa fa-print" aria-hidden="true"></i></a>
-
-                                            <button class="btn-transparent text-primary trigger--fire-modal-10" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/enrollments/183/block-access" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Block Access">
-                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    </tbody></table>
+                                                    @if($sale->manual_added)
+                                                        <span class="text-warning">{{ trans('public.manual') }}</span>
+                                                    @else
+                                                        {{ trans('update.normal_purchased') }}
+                                                    @endif
+                                                </span>
+                                            </td>
+
+                                            <td>{{ dateTimeFormat($sale->created_at, 'j F Y H:i') }}</td>
+
+                                            <td>
+                                                @if(!empty($sale->refund_at))
+                                                    <span class="text-warning">{{ trans('admin/main.refund') }}</span>
+                                                @elseif(!$sale->access_to_purchased_item)
+                                                    <span class="text-danger">{{ trans('update.access_blocked') }}</span>
+                                                @else
+                                                    <span class="text-success">{{ trans('admin/main.success') }}</span>
+                                                @endif
+                                            </td>
+
+                                            <td>
+                                                @can('admin_sales_invoice')
+                                                    @if(!empty($sale->webinar_id))
+                                                        <a href="{{ getAdminPanelUrl() }}/financial/sales/{{ $sale->id }}/invoice" target="_blank" title="{{ trans('admin/main.invoice') }}"><i class="fa fa-print" aria-hidden="true"></i></a>
+                                                    @endif
+                                                @endcan
+
+                                                @if($sale->access_to_purchased_item)
+                                                    @can('admin_enrollment_block_access')
+                                                        @include('admin.includes.delete_button',[
+                                                                'url' => getAdminPanelUrl().'/enrollments/'. $sale->id .'/block-access',
+                                                                'tooltip' => trans('update.block_access'),
+                                                                'btnClass' => '',
+                                                                'btnIcon' => 'fa-times-circle',
+                                                            ])
+                                                    @endcan
+                                                @else
+                                                    @can('admin_enrollment_enable_access')
+                                                        @include('admin.includes.delete_button',[
+                                                                'url' => getAdminPanelUrl().'/enrollments/'. $sale->id .'/enable-access',
+                                                                'tooltip' => trans('update.enable-student-access'),
+                                                                'btnClass' => 'text-success ml-1',
+                                                                'btnIcon' => 'fa-check'
+                                                            ])
+                                                    @endcan
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </table>
                             </div>
                         </div>
 
                         <div class="card-footer text-center">
-                            <nav>
-                                <ul class="pagination">
-
-                                    <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
-                                        <span class="page-link" aria-hidden="true">‹</span>
-                                    </li>
-
-
-
-
-
-                                    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-                                    <li class="page-item"><a href="/admin/enrollments/history?page=2" class="page-link">2</a></li>
-                                    <li class="page-item"><a href="/admin/enrollments/history?page=3" class="page-link">3</a></li>
-                                    <li class="page-item"><a href="/admin/enrollments/history?page=4" class="page-link">4</a></li>
-                                    <li class="page-item"><a href="/admin/enrollments/history?page=5" class="page-link">5</a></li>
-
-
-                                    <li class="page-item">
-                                        <a href="/admin/enrollments/history?page=2" class="page-link" rel="next" aria-label="Next »">›</a>
-                                    </li>
-                                </ul>
-                            </nav>
-
+                            {{ $sales->appends(request()->input())->links() }}
                         </div>
 
                     </div>
@@ -558,7 +227,3 @@
         </div>
     </section>
 @endsection
-
-@push('scripts_bottom')
-
-@endpush

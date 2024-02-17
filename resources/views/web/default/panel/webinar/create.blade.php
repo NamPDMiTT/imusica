@@ -28,13 +28,11 @@
 
         <div class="create-webinar-footer d-flex flex-column flex-md-row align-items-center justify-content-between mt-20 pt-15 border-top">
             <div class="d-flex align-items-center">
-
                 @if(!empty($webinar))
                     <a href="/panel/webinars/{{ $webinar->id }}/step/{{ ($currentStep - 1) }}" class="btn btn-sm btn-primary {{ $currentStep < 2 ? 'disabled' : '' }}">{{ trans('webinars.previous') }}</a>
                 @else
                     <a href="" class="btn btn-sm btn-primary disabled">{{ trans('webinars.previous') }}</a>
                 @endif
-
                 <button type="button" id="getNextStep" class="btn btn-sm btn-primary ml-15" @if($currentStep >= $stepCount) disabled @endif>{{ trans('webinars.next') }}</button>
             </div>
 

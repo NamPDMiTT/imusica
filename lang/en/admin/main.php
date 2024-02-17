@@ -1553,4 +1553,5 @@ By enabling this feature, newly registered users will require approval using thi
     'course_forum' => 'Course Forum',
     'Type tag name and press enter (Max : 5)' => 'Type tag name and press enter (Max : 5)',
     'select_a_category' => 'Select a Category',
+    'search_class' => 'Search Class',
 ];
