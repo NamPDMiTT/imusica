@@ -5,9 +5,9 @@
         <div class="section-header">
             <h1>{{ $pageTitle }}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="/admin/">{{trans('admin/main.dashboard')}}</a>
+                <div class="breadcrumb-item active"><a href="{{ getAdminPanelUrl() }}">{{trans('admin/main.dashboard')}}</a>
                 </div>
-                <div class="breadcrumb-item">{{ $pageTitle}}</div>
+                <div class="breadcrumb-item">{{ $pageTitle }}</div>
             </div>
         </div>
 
@@ -15,137 +15,87 @@
             <section class="card">
                 <div class="card-header">
 
-                    <div class="text-right">
-                        <a href="/admin/regions/new?type=country" class="btn btn-primary">New</a>
-                    </div>
+                    @can('admin_regions_create')
+                        <div class="text-right">
+                            <a href="{{ getAdminPanelUrl() }}/regions/new?type={{ $type }}" class="btn btn-primary">{{ trans('admin/main.new') }}</a>
+                        </div>
+                    @endcan
                 </div>
 
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped text-center font-14">
 
-                            <tbody><tr>
-                                <th class="text-left">Title</th>
-
-                                <th class="text-center">Provinces</th>
-
-                                <th class="text-center">Instructor</th>
-                                <th class="text-center">Date</th>
-                                <th class="text-center">Actions</th>
-                            </tr>
-
-
                             <tr>
-                                <td>United States</td>
+                                <th class="text-left">{{ trans('admin/main.title') }}</th>
 
-                                <td>2</td>
+                                @if($type == \App\Models\Region::$country)
+                                    <th class="text-center">{{ trans('update.provinces') }}</th>
+                                @elseif($type == \App\Models\Region::$province)
+                                    <th class="text-center">{{ trans('update.country') }}</th>
+                                    <th class="text-center">{{ trans('update.cities') }}</th>
+                                @elseif($type == \App\Models\Region::$city)
+                                    <th class="text-center">{{ trans('update.country') }}</th>
+                                    <th class="text-center">{{ trans('update.province') }}</th>
+                                @elseif($type == \App\Models\Region::$district)
+                                    <th class="text-center">{{ trans('update.country') }}</th>
+                                    <th class="text-center">{{ trans('update.province') }}</th>
+                                    <th class="text-center">{{ trans('update.city') }}</th>
+                                @endif
 
-                                <td>2</td>
-
-                                <td>2022 Mar 2 | 03:13</td>
-
-                                <td>
-                                    <a href="/admin/regions/18/edit" class="btn-transparent text-primary mr-2">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-
-                                    <button class="btn-transparent text-primary trigger--fire-modal-1" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/regions/18/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    </button>
-                                </td>
+                                <th class="text-center">{{ trans('admin/main.instructor') }}</th>
+                                <th class="text-center">{{ trans('admin/main.date') }}</th>
+                                <th class="text-center">{{ trans('admin/main.actions') }}</th>
                             </tr>
 
-                            <tr>
-                                <td>France</td>
+                            @foreach($regions as $region)
 
-                                <td>2</td>
+                                <tr>
+                                    <td>{{ $region->title }}</td>
 
-                                <td>4</td>
+                                    @if($type == \App\Models\Region::$country)
+                                        <td>{{ $region->countryProvinces->count() }}</td>
 
-                                <td>2022 Mar 1 | 17:54</td>
+                                        <td>{{ $region->countryUsers->count() }}</td>
+                                    @elseif($type == \App\Models\Region::$province)
+                                        <td>{{ $region->country->title }}</td>
+                                        <td>{{ $region->provinceCities->count() }}</td>
 
-                                <td>
-                                    <a href="/admin/regions/16/edit" class="btn-transparent text-primary mr-2">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
+                                        <td>{{ $region->provinceUsers->count() }}</td>
+                                    @elseif($type == \App\Models\Region::$city)
+                                        <td>{{ $region->country->title }}</td>
+                                        <td>{{ $region->province->title }}</td>
+                                        <td>{{ $region->cityUsers->count() }}</td>
+                                    @elseif($type == \App\Models\Region::$district)
+                                        <td>{{ $region->country->title }}</td>
+                                        <td>{{ $region->province->title }}</td>
+                                        <td>{{ $region->city->title }}</td>
+                                        <td>{{ $region->districtUsers->count() }}</td>
+                                    @endif
 
-                                    <button class="btn-transparent text-primary trigger--fire-modal-2" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/regions/16/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                    <td>{{ dateTimeFormat($region->created_at, 'Y M j | H:i') }}</td>
 
-                            <tr>
-                                <td>Saudi Arabia</td>
+                                    <td>
+                                        @can('admin_regions_edit')
+                                            <a href="{{ getAdminPanelUrl() }}/regions/{{ $region->id }}/edit" class="btn-transparent text-primary mr-2">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        @endcan
 
-                                <td>2</td>
-
-                                <td>2</td>
-
-                                <td>2022 Feb 28 | 05:54</td>
-
-                                <td>
-                                    <a href="/admin/regions/20/edit" class="btn-transparent text-primary mr-2">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-
-                                    <button class="btn-transparent text-primary trigger--fire-modal-3" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/regions/20/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Chad</td>
-
-                                <td>2</td>
-
-                                <td>2</td>
-
-                                <td>2022 Feb 28 | 05:48</td>
-
-                                <td>
-                                    <a href="/admin/regions/19/edit" class="btn-transparent text-primary mr-2">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-
-                                    <button class="btn-transparent text-primary trigger--fire-modal-4" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/regions/19/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>India</td>
-
-                                <td>2</td>
-
-                                <td>4</td>
-
-                                <td>2022 Feb 28 | 05:46</td>
-
-                                <td>
-                                    <a href="/admin/regions/17/edit" class="btn-transparent text-primary mr-2">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-
-                                    <button class="btn-transparent text-primary trigger--fire-modal-5" data-confirm="Are you sure? | Do you want to continue?" data-confirm-href="/admin/regions/17/delete" data-confirm-text-yes="Yes" data-confirm-text-cancel="Cancel" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody></table>
+                                        @can('admin_regions_delete')
+                                            @include('admin.includes.delete_button',['url' => getAdminPanelUrl().'/regions/'.$region->id.'/delete'])
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
 
                 <div class="card-footer text-center">
-
+                    {{ $regions->appends(request()->input())->links() }}
                 </div>
             </section>
         </div>
     </section>
 @endsection
-
-@push('scripts_bottom')
-
-@endpush
