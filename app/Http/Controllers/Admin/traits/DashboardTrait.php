@@ -446,7 +446,7 @@ trait DashboardTrait
 
     public function getClassesStatistics()
     {
-        $labels = [Webinar::$webinar, Webinar::$course, Webinar::$textLesson];
+        $labels = [Webinar::$webinar, Webinar::$course];
         $data = [];
 
         $query = Webinar::where('status', Webinar::$active);
@@ -456,10 +456,11 @@ trait DashboardTrait
             $count = deepClone($query)->where('type', $label)->count();
             $percent = !empty($allClasses) ? ($count * 100) / $allClasses : 0;
             $data[] = round($percent, 2);
+            $translations[] = trans('admin/main.' . $label);
         }
 
         return [
-            'labels' => $labels,
+            'labels' => $translations,
             'data' => $data
         ];
     }
