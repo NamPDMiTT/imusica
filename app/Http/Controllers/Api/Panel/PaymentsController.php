@@ -34,7 +34,6 @@ class PaymentsController extends Controller
         validateParam($request->all(), [
             'order_id' => ['required',
                 Rule::exists('orders', 'id')->where('status', Order::$pending),
-
             ],
         ]);
 
