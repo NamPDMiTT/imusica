@@ -483,7 +483,7 @@ return [
     'factor' => 'Nhân tố',
     'new_factor' => 'Nhân tố mới',
     'sales_page_title' => 'Khóa học đã bán',
-    'webinar' => 'Khóa học',
+    'webinar' => 'Lớp học trực tuyến',
     'type_account' => 'Kiểu tài khoản',
     'item_purchased' => 'Mua hàng',
     'asset' => 'Ví',
@@ -1581,4 +1581,5 @@ return [
     'course_forum' => 'Diễn đàn khóa học',
     'Type tag name and press enter (Max : 5)' => 'Nhập tên thẻ và nhấn Enter (Tối đa: 5)',
     'select_a_category' => 'Chọn một danh mục',
+    'search_class' => 'Tìm kiếm lớp học',
 ];
