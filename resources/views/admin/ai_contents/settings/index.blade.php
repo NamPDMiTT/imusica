@@ -1,13 +1,25 @@
 @extends('admin.layouts.app')
 
+@push('libraries_top')
+
+@endpush
+
+@php
+    $values = !empty($setting) ? $setting->value : null;
+
+    if (!empty($values)) {
+        $values = json_decode($values, true);
+    }
+@endphp
+
+
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>{{ $pageTitle }}</h1>
+            <h1>{{ trans('update.settings') }}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="/admin/">{{trans('admin/main.dashboard')}}</a>
-                </div>
-                <div class="breadcrumb-item">{{ $pageTitle}}</div>
+                <div class="breadcrumb-item active"><a href="{{ getAdminPanelUrl() }}">{{trans('admin/main.dashboard')}}</a></div>
+                <div class="breadcrumb-item">{{ trans('update.settings') }}</div>
             </div>
         </div>
 
@@ -16,102 +28,68 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 col-md-6">
-                            <form action="/admin/settings/main" method="post">
-                                <input type="hidden" name="_token" value="ji2v1hfkFotRGX7xrKaP6pBXFEfCiqPlDVhRodzB">
+                            <form action="{{ getAdminPanelUrl('/settings/main') }}" method="post">
+                                {{ csrf_field() }}
                                 <input type="hidden" name="page" value="general">
-                                <input type="hidden" name="name" value="ai_contents_settings">
-                                <input type="hidden" name="locale" value="en">
+                                <input type="hidden" name="name" value="{{ \App\Models\Setting::$aiContentsSettingsName }}">
+                                <input type="hidden" name="locale" value="{{ \App\Models\Setting::$defaultSettingsLocale }}">
 
+                                @php
+                                    $switches = ['status', 'active_for_admin_panel', 'active_for_organization_panel', 'active_for_instructor_panel']
+                                @endphp
 
-                                <div class="form-group custom-switches-stacked">
-                                    <label class="custom-switch pl-0 d-flex align-items-center">
-                                        <input type="hidden" name="value[status]" value="0">
-                                        <input type="checkbox" name="value[status]" id="statusSwitch" value="1" checked="&quot;checked&quot;" class="custom-switch-input">
-                                        <span class="custom-switch-indicator"></span>
-                                        <label class="custom-switch-description mb-0 cursor-pointer" for="statusSwitch">Active</label>
-                                    </label>
-                                    <div class="text-muted text-small">Enable AI content generator feature</div>
-                                </div>
-                                <div class="form-group custom-switches-stacked">
-                                    <label class="custom-switch pl-0 d-flex align-items-center">
-                                        <input type="hidden" name="value[active_for_admin_panel]" value="0">
-                                        <input type="checkbox" name="value[active_for_admin_panel]" id="active_for_admin_panelSwitch" value="1" checked="&quot;checked&quot;" class="custom-switch-input">
-                                        <span class="custom-switch-indicator"></span>
-                                        <label class="custom-switch-description mb-0 cursor-pointer" for="active_for_admin_panelSwitch">Enable AI for the admin panel</label>
-                                    </label>
-                                    <div class="text-muted text-small">By enabling this option, the AI Generator feature will be available on the admin panel</div>
-                                </div>
-                                <div class="form-group custom-switches-stacked">
-                                    <label class="custom-switch pl-0 d-flex align-items-center">
-                                        <input type="hidden" name="value[active_for_organization_panel]" value="0">
-                                        <input type="checkbox" name="value[active_for_organization_panel]" id="active_for_organization_panelSwitch" value="1" checked="&quot;checked&quot;" class="custom-switch-input">
-                                        <span class="custom-switch-indicator"></span>
-                                        <label class="custom-switch-description mb-0 cursor-pointer" for="active_for_organization_panelSwitch">Enable AI for organizatios</label>
-                                    </label>
-                                    <div class="text-muted text-small">By enabling this option, the AI Generator feature will be available on the organization panel</div>
-                                </div>
-                                <div class="form-group custom-switches-stacked">
-                                    <label class="custom-switch pl-0 d-flex align-items-center">
-                                        <input type="hidden" name="value[active_for_instructor_panel]" value="0">
-                                        <input type="checkbox" name="value[active_for_instructor_panel]" id="active_for_instructor_panelSwitch" value="1" checked="&quot;checked&quot;" class="custom-switch-input">
-                                        <span class="custom-switch-indicator"></span>
-                                        <label class="custom-switch-description mb-0 cursor-pointer" for="active_for_instructor_panelSwitch">Enable AI for instructors</label>
-                                    </label>
-                                    <div class="text-muted text-small">By enabling this option, the AI Generator feature will be available on the instructor panel</div>
-                                </div>
+                                @foreach($switches as $switch)
+                                    <div class="form-group custom-switches-stacked">
+                                        <label class="custom-switch pl-0 d-flex align-items-center">
+                                            <input type="hidden" name="value[{{ $switch }}]" value="0">
+                                            <input type="checkbox" name="value[{{ $switch }}]" id="{{ $switch }}Switch" value="1" {{ (!empty($values) and !empty($values[$switch]) and $values[$switch]) ? 'checked="checked"' : '' }} class="custom-switch-input"/>
+                                            <span class="custom-switch-indicator"></span>
+                                            <label class="custom-switch-description mb-0 cursor-pointer" for="{{ $switch }}Switch">{{ ($switch == 'status') ? trans('admin/main.active') : trans("update.{$switch}") }}</label>
+                                        </label>
+                                        <div class="text-muted text-small">{{ trans("update.ai_content_setting_{$switch}_hint") }}</div>
+                                    </div>
+                                @endforeach
 
                                 <div class="form-group">
-                                    <label class="control-label">API secret key</label>
-                                    <input type="text" name="value[secret_key]" class="form-control" value="">
+                                    <label class="control-label">{{ trans('update.secret_key') }}</label>
+                                    <input type="text" name="value[secret_key]" class="form-control" value="{{ (!empty($values) and !empty($values['secret_key'])) ? $values['secret_key'] : '' }}">
                                 </div>
 
 
                                 <div class="form-group custom-switches-stacked">
                                     <label class="custom-switch pl-0 d-flex align-items-center">
                                         <input type="hidden" name="value[activate_text_service_type]" value="0">
-                                        <input type="checkbox" name="value[activate_text_service_type]" id="activate_text_service_typeSwitch" value="1" checked="&quot;checked&quot;" class="custom-switch-input">
+                                        <input type="checkbox" name="value[activate_text_service_type]" id="activate_text_service_typeSwitch" value="1" {{ (!empty($values) and !empty($values['activate_text_service_type']) and $values['activate_text_service_type']) ? 'checked="checked"' : '' }} class="custom-switch-input"/>
                                         <span class="custom-switch-indicator"></span>
-                                        <label class="custom-switch-description mb-0 cursor-pointer" for="activate_text_service_typeSwitch">Enable AI text generator API</label>
+                                        <label class="custom-switch-description mb-0 cursor-pointer" for="activate_text_service_typeSwitch">{{  trans('update.activate_text_service_type') }}</label>
                                     </label>
                                 </div>
 
-                                <div class="js-text-fields ">
+                                <div class="js-text-fields {{ (!empty($values) and !empty($values['activate_text_service_type']) and $values['activate_text_service_type']) ? '' : 'd-none' }}">
 
                                     <div class="form-group ">
-                                        <label class="control-label">Text generator API model</label>
+                                        <label class="control-label">{!! trans('update.text_service_type') !!}</label>
                                         <select name="value[text_service_type]" class=" form-control">
-                                            <option value="">Select text generator API model</option>
-                                            <option value="ada">ada</option>
-                                            <option value="babbage">babbage</option>
-                                            <option value="curie">curie</option>
-                                            <option value="davinci">davinci</option>
-                                            <option value="gpt-3.5-turbo" selected="">gpt-3.5-turbo</option>
-                                            <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
-                                            <option value="gpt-4">gpt-4</option>
-                                            <option value="gpt-4-32k">gpt-4-32k</option>
+                                            <option value="">{{ trans('update.select_text_service_type') }}</option>
+                                            @foreach(\App\Enums\AiTextServices::types as $typ)
+                                                <option value="{{ $typ }}" {{ (!empty($values) and !empty(!empty($values['text_service_type'])) and $values['text_service_type'] == $typ) ? 'selected' : '' }}>{{ trans("update.{$typ}") }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group ">
-                                        <label class="control-label">Number of text generated per request</label>
+                                        <label class="control-label">{!! trans('update.number_of_text_generated_per_request') !!}</label>
                                         <select name="value[number_of_text_generated_per_request]" class=" form-control">
 
-                                            <option value="1" selected="">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
+                                            @foreach([1,2,3,4,5,6,7,8,9,10] as $num)
+                                                <option value="{{ $num }}" {{ (!empty($values) and !empty(!empty($values['number_of_text_generated_per_request'])) and $values['number_of_text_generated_per_request'] == $num) ? 'selected' : '' }}>{{ $num }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label">Max Tokens</label>
-                                        <input type="number" name="value[max_tokens]" class="form-control" value="500">
+                                        <label class="control-label">{{ trans('update.max_tokens') }}</label>
+                                        <input type="number" name="value[max_tokens]" class="form-control" value="{{ (!empty($values) and !empty($values['max_tokens'])) ? $values['max_tokens'] : '' }}" >
                                     </div>
 
                                 </div>
@@ -119,34 +97,27 @@
                                 <div class="form-group custom-switches-stacked">
                                     <label class="custom-switch pl-0 d-flex align-items-center">
                                         <input type="hidden" name="value[activate_image_service_type]" value="0">
-                                        <input type="checkbox" name="value[activate_image_service_type]" id="activate_image_service_typeSwitch" value="1" checked="&quot;checked&quot;" class="custom-switch-input">
+                                        <input type="checkbox" name="value[activate_image_service_type]" id="activate_image_service_typeSwitch" value="1" {{ (!empty($values) and !empty($values['activate_image_service_type']) and $values['activate_image_service_type']) ? 'checked="checked"' : '' }} class="custom-switch-input"/>
                                         <span class="custom-switch-indicator"></span>
-                                        <label class="custom-switch-description mb-0 cursor-pointer" for="activate_image_service_typeSwitch">Enable AI image generator API</label>
+                                        <label class="custom-switch-description mb-0 cursor-pointer" for="activate_image_service_typeSwitch">{{  trans('update.activate_image_service_type') }}</label>
                                     </label>
                                 </div>
 
-                                <div class="js-image-fields ">
+                                <div class="js-image-fields {{ (!empty($values) and !empty($values['activate_image_service_type']) and $values['activate_image_service_type']) ? '' : 'd-none' }}">
 
                                     <div class="form-group ">
-                                        <label class="control-label">Number of images generated per request</label>
+                                        <label class="control-label">{!! trans('update.number_of_images_generated_per_request') !!}</label>
                                         <select name="value[number_of_images_generated_per_request]" class=" form-control">
 
-                                            <option value="1" selected="">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
+                                            @foreach([1,2,3,4,5,6,7,8,9,10] as $num)
+                                                <option value="{{ $num }}" {{ (!empty($values) and !empty(!empty($values['number_of_images_generated_per_request'])) and $values['number_of_images_generated_per_request'] == $num) ? 'selected' : '' }}>{{ $num }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mt-1">Save</button>
+                                <button type="submit" class="btn btn-primary mt-1">{{ trans('admin/main.submit') }}</button>
                             </form>
                         </div>
                     </div>
@@ -156,6 +127,7 @@
     </section>
 @endsection
 
-@push('scripts_bottom')
 
+@push('scripts_bottom')
+    <script src="/assets/default/js/admin/ai_content_settings.min.js"></script>
 @endpush
