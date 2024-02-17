@@ -643,6 +643,85 @@ class User extends Authenticatable
         return $notifications->sortByDesc('created_at');
     }
 
+    // Get all notifications
+    public function getNotifications()
+    {
+        $notifications = Notification::where(function ($query) {
+            $query->where(function ($query) {
+                $query->where('user_id', $this->id)
+                    ->where('type', 'single');
+            })->orWhere(function ($query) {
+                if (!$this->isAdmin()) {
+                    $query->whereNull('user_id')
+                        ->whereNull('group_id')
+                        ->where('type', 'all_users');
+                }
+            });
+        })->orderBy('created_at', 'desc')
+            ->get();
+
+        $userGroup = $this->userGroup()->first();
+        if (!empty($userGroup)) {
+            $groupNotifications = Notification::where('group_id', $userGroup->group_id)
+                ->where('type', 'group')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            if (!empty($groupNotifications) and !$groupNotifications->isEmpty()) {
+                $notifications = $notifications->merge($groupNotifications);
+            }
+        }
+
+        if ($this->isUser()) {
+            $studentsNotifications = Notification::whereNull('user_id')
+                ->whereNull('group_id')
+                ->where('type', 'students')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            if (!empty($studentsNotifications) and !$studentsNotifications->isEmpty()) {
+                $notifications = $notifications->merge($studentsNotifications);
+            }
+        }
+
+        if ($this->isTeacher()) {
+            $instructorNotifications = Notification::whereNull('user_id')
+                ->whereNull('group_id')
+                ->where('type', 'instructors')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            if (!empty($instructorNotifications) and !$instructorNotifications->isEmpty()) {
+                $notifications = $notifications->merge($instructorNotifications);
+            }
+        }
+
+        if ($this->isOrganization()) {
+            $organNotifications = Notification::whereNull('user_id')
+                ->whereNull('group_id')
+                ->where('type', 'organizations')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            if (!empty($organNotifications) and !$organNotifications->isEmpty()) {
+                $notifications = $notifications->merge($organNotifications);
+            }
+        }
+
+        /* Get Course Students Notifications */
+        $userBoughtWebinarsIds = $this->getAllPurchasedWebinarsIds();
+        
+        if (!empty($userBoughtWebinarsIds)) {
+            $courseStudentsNotifications = Notification::whereIn('webinar_id', $userBoughtWebinarsIds)
+                ->where('type', 'course_students')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            if (!empty($courseStudentsNotifications) and !$courseStudentsNotifications->isEmpty()) {
+                $notifications = $notifications->merge($courseStudentsNotifications);
+            }
+        }
+
+        return $notifications->sortByDesc('created_at');
+    }
+
     public function getAllPurchasedWebinarsIds()
     {
         $userBoughtWebinarsIds = [];

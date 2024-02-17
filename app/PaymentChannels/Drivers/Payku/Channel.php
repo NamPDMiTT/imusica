@@ -20,7 +20,7 @@ class Channel extends BasePaymentChannel implements IChannel
     {
         $this->currency = currency();
         $this->order_session_key = 'payku.payments.order_id';
-
+ 
     }
 
     public function paymentRequest(Order $order)

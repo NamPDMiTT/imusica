@@ -89,13 +89,22 @@
                         </li>
                     @endif
 
-                    @if(!empty($navbarPages) and count($navbarPages))
-                        @foreach($navbarPages as $navbarPage)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ $navbarPage['link'] }}">{{ $navbarPage['title'] }}</a>
-                            </li>
-                        @endforeach
+                    @if(!empty($navbarPages) && count($navbarPages))
+                    <?php $firstIteration = true; ?>
+                    @foreach($navbarPages as $navbarPage)
+                      
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ $navbarPage['link'] }}">{{ $navbarPage['title'] }}</a>
+                        </li>
+                        @if($firstIteration)
+                        <li class="nav-item">
+                          <a class="nav-link" href="/classes?card=grid&sort=newest&type%5B0%5D=webinar">Khóa học trực tuyến</a>
+                        </li>
+                        <?php $firstIteration = false; ?>
                     @endif
+                    @endforeach
+                @endif
+                
                 </ul>
             </div>
 

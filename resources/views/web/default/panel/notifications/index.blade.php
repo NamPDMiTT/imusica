@@ -27,12 +27,12 @@
                         </div>
 
                         <div class="col-12 col-lg-5 mt-10 mt-lg-0">
-                            <span class="font-weight-500 text-gray font-14">{!! truncate($notification->message, 150, true) !!}</span>
+                            {{-- <span class="font-weight-500 text-gray font-12">{!! truncate($notification->message, 150, true) !!}</span> --}}
                         </div>
 
                         <div class="col-12 col-lg-4 mt-10 mt-lg-0 text-right">
                             <button type="button" data-id="{{ $notification->id }}" id="showNotificationMessage{{ $notification->id }}" class="js-show-message btn btn-border-white @if(!empty($notification->notificationStatus)) seen-at @endif">{{ trans('public.view') }}</button>
-                            <input type="hidden" class="notification-message" value="{!! $notification->message !!}">
+                            <input style="display:none;" type="hidden" class="notification-message" value="{{ $notification->message }}">
                         </div>
                     </div>
                 </div>
@@ -53,8 +53,8 @@
     <div class="mt-5 d-none" id="messageModal">
         <div class="text-center">
             <h3 class="modal-title font-16 font-weight-bold text-dark-blue"></h3>
-            <span class="modal-time d-block font-12 text-gray mt-5"></span>
             <span class="modal-message text-gray mt-20"></span>
+            <span class="modal-time d-block font-12 text-gray mt-5"></span>
         </div>
     </div>
 @endsection
