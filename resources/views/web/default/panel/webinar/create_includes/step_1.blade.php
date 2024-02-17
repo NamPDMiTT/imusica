@@ -17,15 +17,12 @@
         @else
             <input type="hidden" name="locale" value="{{ getDefaultLocale() }}">
         @endif
-
-
         <div class="form-group mt-15 ">
             <label class="input-label d-block">{{ trans('panel.course_type') }}</label>
-
             <select name="type" class="custom-select @error('type')  is-invalid @enderror">
                 <option value="webinar" @if(!empty($webinar) and $webinar->isWebinar()) selected @endif>{{ trans('webinars.webinar') }}</option>
                 <option value="course" @if(!empty($webinar) and $webinar->type == 'course') selected @endif>{{ trans('webinars.video_course') }}</option>
-                <option>{{ trans('webinars.text_lesson') }} (Paid Plugin)</option>
+                {{-- <option>{{ trans('webinars.text_lesson') }} (Paid Plugin)</option> --}}
             </select>
 
             @error('type')
@@ -54,7 +51,6 @@
                 @enderror
             </div>
         @endif
-
 
         <div class="form-group mt-15">
             <label class="input-label">{{ trans('public.title') }}</label>
