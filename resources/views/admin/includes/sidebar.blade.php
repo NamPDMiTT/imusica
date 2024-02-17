@@ -142,48 +142,48 @@
             @endcan()
 
             @can('admin_certificate')
-                <li class="nav-item dropdown {{ (request()->is(getAdminPanelUrl('/certificates*', false))) ? 'active' : '' }}">
-                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-                        <i class="fas fa-certificate"></i>
-                        <span>{{ trans('admin/main.certificates') }}</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @can('admin_certificate_list')
-                            <li class="{{ (request()->is(getAdminPanelUrl('/certificates', false))) ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ getAdminPanelUrl() }}/certificates">{{ trans('update.quizzes_related') }}</a>
-                            </li>
-                        @endcan
+{{--                <li class="nav-item dropdown {{ (request()->is(getAdminPanelUrl('/certificates*', false))) ? 'active' : '' }}">--}}
+{{--                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">--}}
+{{--                        <i class="fas fa-certificate"></i>--}}
+{{--                        <span>{{ trans('admin/main.certificates') }}</span>--}}
+{{--                    </a>--}}
+{{--                    <ul class="dropdown-menu">--}}
+{{--                        @can('admin_certificate_list')--}}
+{{--                            <li class="{{ (request()->is(getAdminPanelUrl('/certificates', false))) ? 'active' : '' }}">--}}
+{{--                                <a class="nav-link" href="{{ getAdminPanelUrl() }}/certificates">{{ trans('update.quizzes_related') }}</a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
 
-                        @can('admin_course_certificate_list')
-                            <li class="{{ (request()->is(getAdminPanelUrl('/certificates/course-competition', false))) ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ getAdminPanelUrl() }}/certificates/course-competition">{{ trans('update.course_certificates') }}</a>
-                            </li>
-                        @endcan
+{{--                        @can('admin_course_certificate_list')--}}
+{{--                            <li class="{{ (request()->is(getAdminPanelUrl('/certificates/course-competition', false))) ? 'active' : '' }}">--}}
+{{--                                <a class="nav-link" href="{{ getAdminPanelUrl() }}/certificates/course-competition">{{ trans('update.course_certificates') }}</a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
 
-                        @can('admin_certificate_template_list')
-                            <li class="{{ (request()->is(getAdminPanelUrl('/certificates/templates', false))) ? 'active' : '' }}">
-                                <a class="nav-link"
-                                   href="{{ getAdminPanelUrl() }}/certificates/templates">{{ trans('admin/main.certificates_templates') }}</a>
-                            </li>
-                        @endcan
+{{--                        @can('admin_certificate_template_list')--}}
+{{--                            <li class="{{ (request()->is(getAdminPanelUrl('/certificates/templates', false))) ? 'active' : '' }}">--}}
+{{--                                <a class="nav-link"--}}
+{{--                                   href="{{ getAdminPanelUrl() }}/certificates/templates">{{ trans('admin/main.certificates_templates') }}</a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
 
-                        @can('admin_certificate_template_create')
-                            <li class="{{ (request()->is(getAdminPanelUrl('/certificates/templates/new', false))) ? 'active' : '' }}">
-                                <a class="nav-link"
-                                   href="{{ getAdminPanelUrl() }}/certificates/templates/new">{{ trans('admin/main.new_template') }}</a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
+{{--                        @can('admin_certificate_template_create')--}}
+{{--                            <li class="{{ (request()->is(getAdminPanelUrl('/certificates/templates/new', false))) ? 'active' : '' }}">--}}
+{{--                                <a class="nav-link"--}}
+{{--                                   href="{{ getAdminPanelUrl() }}/certificates/templates/new">{{ trans('admin/main.new_template') }}</a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
             @endcan
 
             @can('admin_webinar_assignments')
-                <li class="{{ (request()->is(getAdminPanelUrl('/assignments', false))) ? 'active' : '' }}">
-                    <a href="{{ getAdminPanelUrl() }}/assignments" class="nav-link">
-                        <i class="fas fa-pen"></i>
-                        <span>{{ trans('update.assignments') }}</span>
-                    </a>
-                </li>
+{{--                <li class="{{ (request()->is(getAdminPanelUrl('/assignments', false))) ? 'active' : '' }}">--}}
+{{--                    <a href="{{ getAdminPanelUrl() }}/assignments" class="nav-link">--}}
+{{--                        <i class="fas fa-pen"></i>--}}
+{{--                        <span>{{ trans('update.assignments') }}</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             @endcan
 
             @can('admin_course_question_forum_list')
