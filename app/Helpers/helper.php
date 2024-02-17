@@ -1382,6 +1382,7 @@ function getNavbarLinks()
         usort($links, function ($item1, $item2) {
             return $item1['order'] <=> $item2['order'];
         });
+      
     }
 
     return $links;
