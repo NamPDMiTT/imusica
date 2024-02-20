@@ -28,4 +28,7 @@ return [
     'admin_roles_edit' => 'Roles Edit',
     'admin_roles_delete' => 'Roles Delete',
 
+    'General Dashboard' => 'General Dashboard',
+    'Marketing Dashboard' => 'Marketing Dashboard',
+
 ];

@@ -206,7 +206,7 @@ return [
     'new' => 'Thêm mới',
     'history' => 'Lịch sử',
     'history_request' => 'Lịch Sử yêu cầu',
-    'item_id' => 'Id mục',
+    'item_id' => 'ID Đơn hàng',
     'export_list' => 'Xuất danh sách học viên',
     'duplicate' => 'Trùng lặp',
 

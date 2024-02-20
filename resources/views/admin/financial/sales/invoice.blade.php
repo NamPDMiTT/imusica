@@ -79,7 +79,6 @@
                                                                     @endif
                                                                 </address>
                                                             </div>
-
                                                             <div class="col-md-6 text-md-right">
                                                                 <address>
                                                                     <strong>{{ trans('panel.purchase_date') }}:</strong><br>
@@ -89,7 +88,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row mt-4">
                                                     <div class="col-md-12">
                                                         <div class="section-title">{{ trans('home.order_summary') }}</div>

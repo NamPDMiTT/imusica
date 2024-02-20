@@ -16881,6 +16881,8 @@ p {
 
 .course-description {
   color: #818894;
+  overflow: hidden; /* Ngăn chặn nội dung tràn ra khỏi khối */
+  word-wrap: break-word; 
 }
 .course-description p {
   color: #818894;

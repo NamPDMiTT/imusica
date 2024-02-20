@@ -2,7 +2,16 @@
     <h3 class="section-title">{{ trans('update.shipping_and_delivery') }}</h3>
     <div class="rounded-sm shadow mt-20 py-25 px-20">
         <div class="row">
-
+            <div class="col-12 col-lg-6">
+                <div class="form-group">
+                    <label class="input-label font-weight-500" for="mobile">Số điện thoại</label>
+                    <input type="text" name="mobile" class="form-control @error('mobile')  is-invalid @enderror" value="{{ !empty($user) ? $user->mobile : '' }}">
+                    @error('mobile')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
             @if(!empty(getStoreSettings('show_address_selection_in_cart')))
                 <div class="col-12 col-lg-6">
                     <div class="form-group">
@@ -10,14 +19,12 @@
 
                         <select name="country_id" class="form-control @error('country_id')  is-invalid @enderror">
                             <option value="">{{ trans('update.select_country') }}</option>
-
                             @if(!empty($countries))
                                 @foreach($countries as $country)
                                     <option value="{{ $country->id }}" {{ (!empty($user) and $user->country_id == $country->id) ? 'selected' : '' }}>{{ $country->title }}</option>
                                 @endforeach
                             @endif
                         </select>
-
                         @error('country_id')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -90,9 +97,7 @@
             <div class="col-12 {{ !empty(getStoreSettings('show_address_selection_in_cart')) ? 'col-lg-6' : '' }}">
                 <div class="form-group">
                     <label class="input-label font-weight-500">{{ trans('update.address') }}</label>
-
                     <textarea name="address" rows="6" class="form-control @error('address')  is-invalid @enderror">{{ !empty($user) ? $user->address : '' }}</textarea>
-
                     @error('address')
                     <div class="invalid-feedback">
                         {{ $message }}

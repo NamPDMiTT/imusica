@@ -7,6 +7,7 @@ APP_URL=https://ipiano.tq18.tech/
 LOG_CHANNEL=stack
 JWT_SECRET=zDg3RLGdt0xOR1Kqhjw3iFiVLv5npnxFfb26dBWa4DcL4ByH6qH6DseVMf9l3Vcy
 API_KEY=1234
+APP_TIMEZONE=Asia/Ho_Chi_Minh
 
 # Database Settings
 DB_CONNECTION=mysql

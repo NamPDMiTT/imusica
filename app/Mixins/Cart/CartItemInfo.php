@@ -32,9 +32,9 @@ class CartItemInfo
     private function getCourseInfo($cart, $webinar)
     {
         $info = [];
-
         $info['imgPath'] = $webinar->getImage();
         $info['itemUrl'] = $webinar->getUrl();
+        $info['category'] = $webinar->category->title;
         $info['title'] = $webinar->title;
         $info['profileUrl'] = $webinar->teacher->getProfileUrl();
         $info['teacherName'] = $webinar->teacher->full_name;
@@ -51,6 +51,7 @@ class CartItemInfo
 
         $info['imgPath'] = $bundle->getImage();
         $info['itemUrl'] = $bundle->getUrl();
+        $info['category'] = $bundle->category->title;
         $info['title'] = $bundle->title;
         $info['profileUrl'] = $bundle->teacher->getProfileUrl();
         $info['teacherName'] = $bundle->teacher->full_name;
@@ -68,6 +69,7 @@ class CartItemInfo
         $info['isProduct'] = true;
         $info['imgPath'] = $product->thumbnail;
         $info['itemUrl'] = $product->getUrl();
+        $info['category'] = $product->category->title;
         $info['title'] = $product->title;
         $info['profileUrl'] = $product->creator->getProfileUrl();
         $info['teacherName'] = $product->creator->full_name;
