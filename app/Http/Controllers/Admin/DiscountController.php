@@ -54,7 +54,7 @@ class DiscountController extends Controller
         }
 
         if (isset($search)) {
-            $query = $query->where('name', 'like', '%' . $search . '%');
+            $query = $query->where('title', 'like', '%' . $search . '%');
         }
 
         if (!empty($sort)) {
