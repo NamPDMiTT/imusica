@@ -315,7 +315,6 @@ class SupportsController extends Controller
         $this->authorize('admin_supports_delete');
 
         $support = Support::where('id', $id)
-            ->whereNotNull('department_id')
             ->first();
 
         if (empty($support)) {

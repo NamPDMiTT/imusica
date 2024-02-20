@@ -104,7 +104,7 @@
                                                                     <input type="checkbox" name="permissions[]" id="permissions_{{ $child->id }}" value="{{ $child->id }}"
                                                                            {{ isset($permissions[$child->id]) ? 'checked' : '' }} class="form-check-input section-child">
                                                                     <label class="form-check-label cursor-pointer mt-0" for="permissions_{{ $child->id }}">
-                                                                        {{ $child->caption }}
+                                                                        {{ trans('admin/pages/roles.' . $child->caption) }}
                                                                     </label>
                                                                 </div>
                                                             @endforeach
