@@ -27,7 +27,7 @@
 
 {{--course description--}}
 @if($course->description)
-    <div class="mt-20">
+    <div class="mt-20" style="width:730px !important;">
         <h2 class="section-title after-line">{{ trans('product.Webinar_description') }}</h2>
         <div class="mt-15 course-description">
             {!! nl2br($course->description) !!}

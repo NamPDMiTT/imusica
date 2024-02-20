@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $table = 'orders';
     //status
     public static $pending = 'pending';
     public static $paying = 'paying';
     public static $paid = 'paid';
     public static $fail = 'fail';
-
     //types
     public static $webinar = 'webinar';
     public static $meeting = 'meeting';
@@ -26,10 +26,8 @@ class Order extends Model
 
     public static $addiction = 'addiction';
     public static $deduction = 'deduction';
-
     public static $income = 'income';
     public static $asset = 'asset';
-
     //paymentMethod
     public static $credit = 'credit';
     public static $paymentChannel = 'payment_channel';
@@ -37,12 +35,10 @@ class Order extends Model
     public $timestamps = false;
 
     protected $guarded = ['id'];
-
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
-
     public function orderItems()
     {
         return $this->hasMany('App\Models\OrderItem', 'order_id', 'id');

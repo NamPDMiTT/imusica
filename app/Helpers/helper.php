@@ -2300,3 +2300,13 @@ function checkMobileNumber($phoneNumber)
 
     return false;
 }
+
+function getUserAddress(){
+   try {
+    $user = auth()->user();
+    $address = $user->address;
+    return $address;
+   } catch (\Throwable $th) {
+       return '';
+   }
+}

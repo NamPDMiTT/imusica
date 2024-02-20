@@ -47,10 +47,13 @@
                                                                     <br>
                                                                     {{ $buyer->full_name }}
                                                                 </address>
-
+                                                                <address class="mt-2">
+                                                                    <strong>Số điện thoại :</strong><br>
+                                                                    {{ $order->mobile ? $order->mobile : $buyer->mobile}}
+                                                                </address>
                                                                 <address class="mt-2">
                                                                     <strong>{{ trans('update.buyer_address') }}:</strong><br>
-                                                                    {{ $buyer->getAddress(true) }}
+                                                                    {{ $order->address ? $order->address : $buyer->getAddress(true)}}
                                                                 </address>
                                                             </div>
                                                             <div class="col-md-6 text-md-right">
@@ -95,16 +98,16 @@
                                                                 <tr>
                                                                     <td class="text-center">
                                                                         <span>{{ !empty($product) ? $product->title : trans('update.delete_item') }}</span>
-                                                                        @if(!empty($order->specifications))
+                                                                        @if(!empty($productOrder->specifications))
                                                                             (
                                                                             <div class="d-inline-block">
-                                                                                @foreach(json_decode($order->specifications,true) as $specificationKey => $specificationValue)
+                                                                                @foreach(json_decode($productOrder->specifications,true) as $specificationKey => $specificationValue)
                                                                                     <span>{{ str_replace('_',' ',$specificationValue) }}{{ (!$loop->last) ? ', ' : '' }}</span>
                                                                                 @endforeach
                                                                             </div>)
                                                                         @endif
                                                                     </td>
-                                                                    <td class="text-center">{{ $order->quantity }} {{ trans('cart.item') }}</td>
+                                                                    <td class="text-center">{{ $productOrder->quantity }} {{ trans('cart.item') }}</td>
 
                                                                     <td class="text-center">
                                                                         @if(!empty($sale->amount))
@@ -147,14 +150,14 @@
 
                                                                 <div class="invoice-detail-item">
                                                                     <div class="invoice-detail-name">{{ trans('update.quantity') }}</div>
-                                                                    <div class="invoice-detail-value">{{ $order->quantity }} {{ trans('cart.item') }}</div>
+                                                                    <div class="invoice-detail-value">{{ $productOrder->quantity }} {{ trans('cart.item') }}</div>
                                                                 </div>
 
-                                                                @if(!empty($order->specifications))
+                                                                @if(!empty($productOrder->specifications))
                                                                     <div class="invoice-detail-item">
                                                                         <div class="invoice-detail-name">{{ trans('update.specifications') }}</div>
 
-                                                                        @foreach(json_decode($order->specifications,true) as $specificationKey => $specificationValue)
+                                                                        @foreach(json_decode($productOrder->specifications,true) as $specificationKey => $specificationValue)
                                                                             <div class="invoice-detail-value">
                                                                                 <span class="">{{ $specificationKey }}</span>
                                                                                 <span class="ml-3">{{ str_replace('_',' ',$specificationValue) }}</span>

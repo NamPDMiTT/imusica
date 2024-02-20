@@ -40,14 +40,10 @@ class CartController extends Controller
                 }
             ])
             ->get();
-
         if (!empty($carts) and !$carts->isEmpty()) {
             $calculate = $this->calculatePrice($carts, $user);
-
             $hasPhysicalProduct = $carts->where('productOrder.product.type', Product::$physical);
-
             $deliveryEstimateTime = 0;
-
             if (!empty($hasPhysicalProduct) and count($hasPhysicalProduct)) {
                 foreach ($hasPhysicalProduct as $physicalProductCart) {
                     if (!empty($physicalProductCart->productOrder) and
@@ -59,11 +55,8 @@ class CartController extends Controller
                     }
                 }
             }
-
             if (!empty($calculate)) {
-
                 $totalCashbackAmount = $this->getTotalCashbackAmount($carts, $user, $calculate["sub_total"]);
-
                 $data = [
                     'pageTitle' => trans('public.cart_page_title'),
                     'user' => $user,
@@ -80,9 +73,7 @@ class CartController extends Controller
                     'deliveryEstimateTime' => $deliveryEstimateTime,
                     'totalCashbackAmount' => $totalCashbackAmount,
                 ];
-
                 $data = array_merge($data, $this->getLocationsData($user));
-
                 return view('web.default.cart.cart', $data);
             }
         }
@@ -351,7 +342,7 @@ class CartController extends Controller
 
         $subTotal = 0;
         $totalDiscount = 0;
-        $tax = (!empty($financialSettings['tax']) and $financialSettings['tax'] > 0) ? $financialSettings['tax'] : 0;
+        $tax = (!empty($financialSettings['tax']) and $financialSettings['tax'] >= 0) ? $financialSettings['tax'] : 0;
         $taxPrice = 0;
         $commissionPrice = 0;
         $commission = 0;
@@ -407,64 +398,55 @@ class CartController extends Controller
     public function checkout(Request $request, $carts = null)
     {
         $user = auth()->user();
-
         if (empty($carts)) {
             $carts = Cart::where('creator_id', $user->id)
                 ->get();
         }
-
         $hasPhysicalProduct = $carts->where('productOrder.product.type', Product::$physical);
         $checkAddressValidation = (count($hasPhysicalProduct) > 0);
-
         if (empty(getStoreSettings('show_address_selection_in_cart')) or !empty(getStoreSettings('take_address_selection_optional'))) {
             $checkAddressValidation = false;
         }
-
         $this->validate($request, [
             'country_id' => Rule::requiredIf($checkAddressValidation),
             'province_id' => Rule::requiredIf($checkAddressValidation),
             'city_id' => Rule::requiredIf($checkAddressValidation),
             'district_id' => Rule::requiredIf($checkAddressValidation),
             'address' => Rule::requiredIf($checkAddressValidation),
+            'mobile' => "required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:14"
         ]);
-
         $discountId = $request->input('discount_id');
-
         $paymentChannels = PaymentChannel::where('status', 'active')->get();
-
         $discountCoupon = Discount::where('id', $discountId)->first();
-
         if (empty($discountCoupon) or $discountCoupon->checkValidDiscount() != 'ok') {
             $discountCoupon = null;
         }
-
         if (!empty($carts) and !$carts->isEmpty()) {
             $calculate = $this->calculatePrice($carts, $user);
-
             $order = $this->createOrderAndOrderItems($carts, $calculate, $user, $discountCoupon);
-
             if (!empty($discountCoupon)) {
                 $totalCouponDiscount = $this->handleDiscountPrice($discountCoupon, $carts, $calculate['sub_total']);
                 $calculate['total_discount'] += $totalCouponDiscount;
                 $calculate["total"] = $calculate["total"] - $totalCouponDiscount;
             }
-
             if (count($hasPhysicalProduct) > 0) {
                 $this->updateProductOrders($request, $carts, $user);
             }
-
             if (!empty($order) and $order->total_amount > 0) {
                 $razorpay = false;
                 $isMultiCurrency = !empty(getFinancialCurrencySettings('multi_currency'));
-
                 foreach ($paymentChannels as $paymentChannel) {
                     if ($paymentChannel->class_name == 'Razorpay' and (!$isMultiCurrency or in_array(currency(), $paymentChannel->currencies))) {
                         $razorpay = true;
                     }
                 }
-
                 $totalCashbackAmount = $this->getTotalCashbackAmount($carts, $user, $calculate["sub_total"]);
-
+                $shipping_info = [
+                    'address' => $request->input('address'),
+                    'mobile' => $request->input('mobile'),
+                    'message_to_seller' => $request->input('message_to_seller') ?? '',
+                ];
+                session(['shipping_info' => $shipping_info]);
                 $data = [
                     'pageTitle' => trans('public.checkout_page_title'),
                     'paymentChannels' => $paymentChannels,
@@ -482,13 +464,11 @@ class CartController extends Controller
                     'totalCashbackAmount' => $totalCashbackAmount,
                     'previousUrl' => url()->previous(),
                 ];
-
                 return view(getTemplate() . '.cart.payment', $data);
             } else {
                 return $this->handlePaymentOrderWithZeroTotalAmount($order);
             }
         }
-
         return redirect('/cart');
     }
 
@@ -625,10 +605,9 @@ class CartController extends Controller
     {
         $seller = $this->getSeller($cart);
         $financialSettings = getFinancialSettings();
-
         $subTotal = 0;
         $totalDiscount = 0;
-        $tax = (!empty($financialSettings['tax']) and $financialSettings['tax'] > 0) ? $financialSettings['tax'] : 0;
+        $tax = (!empty($financialSettings['tax']) and $financialSettings['tax'] >= 0) ? $financialSettings['tax'] : 0;
         $taxPrice = 0;
         $commissionPrice = 0;
 
@@ -636,7 +615,6 @@ class CartController extends Controller
             $commission = $seller->getCommission();
         } else {
             $commission = 0;
-
             if (!empty($financialSettings) and !empty($financialSettings['commission'])) {
                 $commission = (int)$financialSettings['commission'];
             }
@@ -649,7 +627,7 @@ class CartController extends Controller
 
             $priceWithoutDiscount = $price - $discount;
 
-            if ($tax > 0 and $priceWithoutDiscount > 0) {
+            if ($tax >= 0 and $priceWithoutDiscount > 0) {
                 $taxPrice += $priceWithoutDiscount * $tax / 100;
             }
 
@@ -665,7 +643,7 @@ class CartController extends Controller
 
             $priceWithoutDiscount = $price - $discount;
 
-            if ($tax > 0 and $priceWithoutDiscount > 0) {
+            if ($tax >= 0 and $priceWithoutDiscount > 0) {
                 $taxPrice += $priceWithoutDiscount * $tax / 100;
             }
 
@@ -691,7 +669,7 @@ class CartController extends Controller
                 $taxIsDifferent = ($taxIsDifferent and $tax != $productTax);
 
                 $tax = $productTax;
-                if ($productTax > 0 and $priceWithoutDiscount > 0) {
+                if ($productTax >= 0 and $priceWithoutDiscount > 0) {
                     $taxPrice += $priceWithoutDiscount * $productTax / 100;
                 }
 
@@ -708,7 +686,7 @@ class CartController extends Controller
 
             $priceWithoutDiscount = $price - $discount;
 
-            if ($tax > 0 and $priceWithoutDiscount > 0) {
+            if ($tax >= 0 and $priceWithoutDiscount > 0) {
                 $taxPrice += $priceWithoutDiscount * $tax / 100;
             }
 
@@ -723,8 +701,6 @@ class CartController extends Controller
         if ($totalDiscount > $subTotal) {
             $totalDiscount = $subTotal;
         }
-
-
         return [
             'sub_total' => round($subTotal, 2),
             'total_discount' => round($totalDiscount, 2),

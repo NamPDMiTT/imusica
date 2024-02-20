@@ -91,10 +91,8 @@
                         <div class="col-12 col-lg-5">
                             <div class="form-group">
                                 <label class="input-label">{{ trans('update.seller') }}</label>
-
                                 <select name="seller_id" class="form-control select2" data-allow-clear="false">
                                     <option value="all">{{ trans('public.all') }}</option>
-
                                     @foreach($sellers as $seller)
                                         <option value="{{ $seller->id }}" @if(request()->get('seller_id',null) == $seller->id) selected @endif>{{ $seller->full_name }}</option>
                                     @endforeach
