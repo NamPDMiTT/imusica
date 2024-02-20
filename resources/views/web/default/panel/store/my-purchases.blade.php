@@ -228,9 +228,9 @@
                                         </td>
                                         <td class="align-middle">
                                             @if($order->status == \App\Models\ProductOrder::$waitingDelivery)
-                                                <span class="text-warning">{{ trans('update.product_order_status_waiting_delivery') }}</span>
+                                                <span class="text-primary">{{ trans('update.product_order_status_waiting_delivery') }}</span>
                                             @elseif($order->status == \App\Models\ProductOrder::$success)
-                                                <span class="text-dark-blue">{{ trans('update.product_order_status_success') }}</span>
+                                                <span class="" style="color: #47c363 !important">{{ trans('update.product_order_status_success') }}</span>
                                             @elseif($order->status == \App\Models\ProductOrder::$shipped)
                                                 <span class="text-warning">{{ trans('update.product_order_status_shipped') }}</span>
                                             @elseif($order->status == \App\Models\ProductOrder::$canceled)

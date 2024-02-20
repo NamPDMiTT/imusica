@@ -32,6 +32,10 @@
                                         <th>{{ trans('admin/main.actions') }}</th>
                                     </tr>
                                     @foreach($roles as $role)
+                                        @if($role->name == 'organization')
+                                            @continue
+                                        @endif
+
                                         <tr>
                                             <td>{{$role->id}}</td>
                                             <td class="text-left">{{$role->caption}}</td>
