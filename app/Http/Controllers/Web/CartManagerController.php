@@ -12,6 +12,7 @@ use App\Models\Ticket;
 use App\Models\Webinar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 
 class CartManagerController extends Controller
 {
@@ -229,23 +230,35 @@ class CartManagerController extends Controller
 
     public function storeUserProductCart($user, $data)
     {
-        $product_id = $data['item_id'];
-        $specifications = $data['specifications'] ?? null;
+        try {
+            $product_id = $data['item_id'];
+        $specifications = $data['specifications'] ?? null;  
+       $flag = false;
+       if(isset($data['quantity'])){
+        $flag = true;
+       }
+       if($flag){
+        if($data['quantity'] <= 0 || !is_numeric($data['quantity'])) {
+            // Thông báo số lượng không hợp lệ rồi  back trở lại
+            $toastData = [
+                'title' => "Số lượng không hợp lệ", 
+                'msg' => "Số lượng không hợp lệ",
+                'status' => 'error'
+            ];
+            return back()->with(['toast' => $toastData]);
+        }
+        }
         $quantity = $data['quantity'] ?? 1;
-
         $product = Product::where('id', $product_id)
             ->where('status', 'active')
             ->first();
-
         if (!empty($product) and !empty($user)) {
             $checkProductForSale = checkProductForSale($product, $user);
 
             if ($checkProductForSale != 'ok') {
                 return $checkProductForSale;
             }
-
             $activeDiscount = $product->getActiveDiscount();
-
             $productOrder = ProductOrder::updateOrCreate([
                 'product_id' => $product->id,
                 'seller_id' => $product->creator_id,
@@ -254,11 +267,10 @@ class CartManagerController extends Controller
                 'status' => 'pending',
             ], [
                 'specifications' => $specifications ? json_encode($specifications) : null,
-                'quantity' => $quantity,
+                'quantity' => DB::raw('quantity + ' . $quantity),
                 'discount_id' => !empty($activeDiscount) ? $activeDiscount->id : null,
                 'created_at' => time()
             ]);
-
             Cart::updateOrCreate([
                 'creator_id' => $user->id,
                 'product_order_id' => $productOrder->id,
@@ -266,16 +278,23 @@ class CartManagerController extends Controller
                 'product_discount_id' => !empty($activeDiscount) ? $activeDiscount->id : null,
                 'created_at' => time()
             ]);
-
             return 'ok';
         }
-
         $toastData = [
             'title' => trans('public.request_failed'),
             'msg' => trans('cart.course_not_found'),
             'status' => 'error'
         ];
         return back()->with(['toast' => $toastData]);
+        } catch (\Exception $e) {
+            // Thông báo số lượng không hợp lệ rồi  back trở lại
+            $toastData = [
+                'title' => "Số lượng không hợp lệ", 
+                'msg' => "Số lượng không hợp lệ",
+                'status' => 'error'
+            ];
+            return back()->with(['toast' => $toastData]);
+        }
     }
 
     public function storeCookieCart($data)

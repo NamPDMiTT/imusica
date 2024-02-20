@@ -564,7 +564,7 @@ return [
 'you_bought_product' => 'Bạn đã mua sản phẩm này',
 'cant_purchase_your_product' => 'Bạn không thể mua sản phẩm của mình',
 'shipping_and_delivery' => 'Vận chuyển và giao hàng',
-'message_to_seller' => 'Tin nhắn đến người bán',
+'message_to_seller' => 'Ghi chú cho người bán',
 'cart_order_estimated_delivery_time' => 'Thời gian giao hàng ước tính đơn hàng',
 'cart_order_estimated_delivery_time_hint' => 'Đơn hàng của bạn bao gồm sản phẩm vật lý và thời gian giao hàng ước tính là :days ngày.',
 'product_purchased' => 'Sản phẩm đã mua',
