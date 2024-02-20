@@ -9,7 +9,8 @@
         <div class="section-header">
             <h1>{{ trans('admin/main.sales') }}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="{{ getAdminPanelUrl() }}">{{trans('admin/main.dashboard')}}</a>
+                <div class="breadcrumb-item active"><a
+                        href="{{ getAdminPanelUrl() }}">{{trans('admin/main.dashboard')}}</a>
                 </div>
                 <div class="breadcrumb-item">{{ trans('admin/main.sales') }}</div>
             </div>
@@ -97,7 +98,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="input-label">{{ trans('admin/main.search') }}</label>
-                                    <input type="text" class="form-control" name="item_title" value="{{ request()->get('item_title') }}">
+                                    <input type="text" class="form-control" name="item_title"
+                                           value="{{ request()->get('item_title') }}">
                                 </div>
                             </div>
 
@@ -106,7 +108,8 @@
                                 <div class="form-group">
                                     <label class="input-label">{{ trans('admin/main.start_date') }}</label>
                                     <div class="input-group">
-                                        <input type="date" id="fsdate" class="text-center form-control" name="from" value="{{ request()->get('from') }}" placeholder="Start Date">
+                                        <input type="date" id="fsdate" class="text-center form-control" name="from"
+                                               value="{{ request()->get('from') }}" placeholder="Start Date">
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +117,8 @@
                                 <div class="form-group">
                                     <label class="input-label">{{ trans('admin/main.end_date') }}</label>
                                     <div class="input-group">
-                                        <input type="date" id="lsdate" class="text-center form-control" name="to" value="{{ request()->get('to') }}" placeholder="End Date">
+                                        <input type="date" id="lsdate" class="text-center form-control" name="to"
+                                               value="{{ request()->get('to') }}" placeholder="End Date">
                                     </div>
                                 </div>
                             </div>
@@ -127,23 +131,26 @@
                                         <option value="">{{ trans('admin/main.all_status') }}</option>
                                         @foreach(\App\Models\ProductOrder::$status as $str)
                                             @if($str != \App\Models\ProductOrder::$pending)
-                                                <option value="{{ $str }}" @if(request()->get('status') == $str) selected @endif>{{ trans('update.product_order_status_'.$str) }}</option>
+                                                <option value="{{ $str }}"
+                                                        @if(request()->get('status') == $str) selected @endif>{{ trans('update.product_order_status_'.$str) }}</option>
                                             @endif
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
-
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="input-label">{{ trans('admin/main.seller') }}</label>
-                                    <select name="seller_ids[]" multiple="multiple" data-search-option="just_organization_and_teacher_role" class="form-control search-user-select2"
+                                    <select name="seller_ids[]" multiple="multiple"
+{{--                                            data-search-option="just_organization_and_teacher_role"--}}
+                                            class="form-control search-user-select2"
                                             data-placeholder="{{ trans('update.search_seller') }}">
 
                                         @if(!empty($sellers) and $sellers->count() > 0)
                                             @foreach($sellers as $seller)
-                                                <option value="{{ $seller->id }}" selected>{{ $seller->full_name }}</option>
+                                                <option value="{{ $seller->id }}"
+                                                        selected>{{ $seller->full_name }}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -154,12 +161,15 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="input-label">{{ trans('update.customer') }}</label>
-                                    <select name="customer_ids[]" multiple="multiple" data-search-option="just_student_role" class="form-control search-user-select2"
-                                            data-placeholder="{{ trans('public.search_user') }}">
+                                    <select name="customer_ids[]" multiple="multiple"
+{{--                                            data-search-option="just_student_role"--}}
+                                            class="form-control search-user-select2"
+                                            data-placeholder="{{ trans('admin/main.search_users') }}">
 
                                         @if(!empty($customers) and $customers->count() > 0)
                                             @foreach($customers as $customer)
-                                                <option value="{{ $customer->id }}" selected>{{ $customer->full_name }}</option>
+                                                <option value="{{ $customer->id }}"
+                                                        selected>{{ $customer->full_name }}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -170,7 +180,8 @@
                             <div class="col-md-3">
                                 <div class="form-group mt-1">
                                     <label class="input-label mb-4"> </label>
-                                    <input type="submit" class="text-center btn btn-primary w-100" value="{{ trans('admin/main.show_results') }}">
+                                    <input type="submit" class="text-center btn btn-primary w-100"
+                                           value="{{ trans('admin/main.show_results') }}">
                                 </div>
                             </div>
                         </div>
@@ -184,7 +195,8 @@
                     <div class="card">
                         <div class="card-header">
                             @can('admin_store_products_orders_export')
-                                <a href="{{ getAdminPanelUrl() }}/store/orders/export?{{ !empty($inHouseOrders) ? 'in-house-orders=true&' : '' }}{{ http_build_query(request()->all()) }}" class="btn btn-primary">{{ trans('admin/main.export_xls') }}</a>
+                                <a href="{{ getAdminPanelUrl() }}/store/orders/export?{{ !empty($inHouseOrders) ? 'in-house-orders=true&' : '' }}{{ http_build_query(request()->all()) }}"
+                                   class="btn btn-primary">{{ trans('admin/main.export_xls') }}</a>
                             @endcan
                         </div>
 
@@ -212,17 +224,21 @@
                                             <td class="text-left">
                                                 @if(!empty($order->buyer))
                                                     {{ $order->buyer->full_name  }}
-                                                    <div class="text-primary text-small font-600-bold">ID : {{  $order->buyer->id }}</div>
+                                                    <div class="text-primary text-small font-600-bold">ID
+                                                        : {{  $order->buyer->id }}</div>
                                                 @elseif(!empty($order->gift) and !empty($order->gift))
                                                     {{ $order->gift->user->full_name }}
-                                                    <div class="text-primary text-small font-600-bold">ID : {{  $order->gift->user_id }}</div>
-                                                    <span class="d-block mt-1 text-muted font-12">{!! trans('update.a_gift_for_name_on_date',['name' => $order->gift->name, 'date' => (!empty($order->gift->date) ? dateTimeFormat($order->gift->date, 'j M Y H:i') : trans('update.instantly'))]) !!}</span>
+                                                    <div class="text-primary text-small font-600-bold">ID
+                                                        : {{  $order->gift->user_id }}</div>
+                                                    <span
+                                                        class="d-block mt-1 text-muted font-12">{!! trans('update.a_gift_for_name_on_date',['name' => $order->gift->name, 'date' => (!empty($order->gift->date) ? dateTimeFormat($order->gift->date, 'j M Y H:i') : trans('update.instantly'))]) !!}</span>
                                                 @endif
                                             </td>
 
                                             <td class="text-left">
                                                 {{ !empty($order->seller) ? $order->seller->full_name : '' }}
-                                                <div class="text-primary text-small font-600-bold">ID : {{  !empty($order->seller) ? $order->seller->id : '' }}</div>
+                                                <div class="text-primary text-small font-600-bold">ID
+                                                    : {{  !empty($order->seller) ? $order->seller->id : '' }}</div>
                                             </td>
 
                                             <td>
@@ -257,37 +273,47 @@
 
                                             <td>
                                                 @if($order->status == \App\Models\ProductOrder::$waitingDelivery)
-                                                    <span class="text-warning">{{ trans('update.product_order_status_waiting_delivery') }}</span>
+                                                    <span
+                                                        class="text-primary">{{ trans('update.product_order_status_waiting_delivery') }}</span>
                                                 @elseif($order->status == \App\Models\ProductOrder::$success)
-                                                    <span class="text-dark-blue">{{ trans('update.product_order_status_success') }}</span>
+                                                    <span
+                                                        class="text-success">{{ trans('update.product_order_status_success') }}</span>
                                                 @elseif($order->status == \App\Models\ProductOrder::$shipped)
-                                                    <span class="text-warning">{{ trans('update.product_order_status_shipped') }}</span>
+                                                    <span
+                                                        class="text-warning">{{ trans('update.product_order_status_shipped') }}</span>
                                                 @elseif($order->status == \App\Models\ProductOrder::$canceled)
-                                                    <span class="text-danger">{{ trans('update.product_order_status_canceled') }}</span>
+                                                    <span
+                                                        class="text-danger">{{ trans('update.product_order_status_canceled') }}</span>
                                                 @endif
                                             </td>
 
                                             <td>
                                                 @can('admin_store_products_orders_invoice')
                                                     @if(!empty($order->product))
-                                                        <a href="{{ getAdminPanelUrl() }}/store/orders/{{ $order->id }}/invoice" target="_blank" title="{{ trans('admin/main.invoice') }}"><i class="fa fa-print" aria-hidden="true"></i></a>
+                                                        <a href="{{ getAdminPanelUrl() }}/store/orders/{{ $order->id }}/invoice"
+                                                           target="_blank"
+                                                           title="{{ trans('admin/main.invoice') }}"><i
+                                                                class="fa fa-print" aria-hidden="true"></i></a>
                                                     @endif
                                                 @endcan
 
-                                                @can('admin_store_products_orders_refund')
-                                                    @include('admin.includes.delete_button',[
-                                                            'url' => getAdminPanelUrl().'/store/orders/'. $order->id .'/refund',
-                                                            'tooltip' => trans('admin/main.refund'),
-                                                            'btnIcon' => 'fa-times-circle'
-                                                        ])
-                                                @endcan
+                                                @if ($order->status != \App\Models\ProductOrder::$canceled)
+                                                    @can('admin_store_products_orders_refund')
+                                                        @include('admin.includes.delete_button',[
+                                                                'url' => getAdminPanelUrl().'/store/orders/'. $order->id .'/refund',
+                                                                'tooltip' => trans('admin/main.refund'),
+                                                                'btnIcon' => 'fa-times-circle'
+                                                            ])
+                                                    @endcan
+                                                @endif
 
                                                 @if($order->status == \App\Models\ProductOrder::$waitingDelivery)
                                                     @can('admin_store_products_orders_tracking_code')
                                                         <button type="button"
                                                                 data-sale-id="{{ $order->sale_id }}"
                                                                 data-product-order-id="{{ $order->id }}"
-                                                                data-toggle="tooltip" title="{{ trans('update.enter_tracking_code') }}"
+                                                                data-toggle="tooltip"
+                                                                title="{{ trans('update.enter_tracking_code') }}"
                                                                 class="js-enter-tracking-code btn-transparent text-primary">
                                                             <i class="fa fa-map"></i>
                                                         </button>

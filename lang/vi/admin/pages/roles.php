@@ -34,5 +34,7 @@ return [
     'admin_roles_edit' => 'Sửa vai trò',
     'admin_roles_delete' => 'Xóa vai trò',
 
+    'General Dashboard' => 'Bảng điều khiển chung',
+    'Marketing Dashboard' => 'Bảng điều khiển Marketing',
 
 ];

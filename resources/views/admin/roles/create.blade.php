@@ -92,7 +92,7 @@
                                                         <input type="checkbox" name="permissions[]" id="permissions_{{ $section->id }}" value="{{ $section->id }}"
                                                                {{isset($permissions[$section->id]) ? 'checked' : ''}} class="form-check-input mt-0 section-parent">
                                                         <label class="form-check-label font-16 font-weight-bold cursor-pointer" for="permissions_{{ $section->id }}">
-                                                            {{ $section->caption }}
+                                                            {{ trans('admin/pages/roles.' . $section->caption) }}
                                                         </label>
                                                     </div>
 

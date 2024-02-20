@@ -121,10 +121,9 @@ class ProductsController extends Controller
 
         $totalBuyers = deepClone($query)
             ->join('product_orders', 'products.id', 'product_orders.product_id')
-            ->select(DB::raw('count(buyer_id) as buyerCount'))
+            ->select(DB::raw('count(DISTINCT buyer_id) as buyerCount'))
             ->whereNotNull('product_orders.sale_id')
             ->whereNotIn('product_orders.status', [ProductOrder::$canceled, ProductOrder::$pending])
-            ->groupBy('buyer_id')
             ->first();
 
         return [
