@@ -81,7 +81,7 @@ return [
     'all_blog' => 'Các bài viết trên blog',
     'blog_hint' => '#Khám phá tin tức và bài viết mới nhất',
 
-    'platform_address' => 'Địa chỉ',
+    'platform_address' => 'Địa chỉ cửa hàng',
     'order_summary' => 'Đơn hàng',
   	'blog_search_placeholder' => 'Tìm kiếm các bài viết trên blog...',
 ];

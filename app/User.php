@@ -920,12 +920,9 @@ class User extends Authenticatable
     public function getAddress($full = false)
     {
         $address = null;
-
         if ($full) {
             $regionIds = [$this->country_id, $this->province_id, $this->city_id, $this->district_id];
-
             $regions = Region::whereIn('id', $regionIds)->get();
-
             foreach ($regions as $region) {
                 if ($region->id == $this->country_id) {
                     $address .= $region->title;
@@ -938,13 +935,10 @@ class User extends Authenticatable
                 }
             }
         }
-
         if (!empty($address)) {
             $address .= ', ';
         }
-
         $address .= $this->address;
-
         return $address;
     }
 

@@ -30,50 +30,40 @@ class PaymentController extends Controller
         $this->validate($request, [
             'gateway' => 'required'
         ]);
-
         $user = auth()->user();
         $gateway = $request->input('gateway');
         $orderId = $request->input('order_id');
-
         $order = Order::where('id', $orderId)
             ->where('user_id', $user->id)
             ->first();
-
+            $shippingInfo = session()->get('shipping_info');   
+        $order->mobile = $shippingInfo['mobile'];
+        $order->address = $shippingInfo['address'];
+        $order->message_to_seller = $shippingInfo['message_to_seller'];
         if ($order->type === Order::$meeting) {
             $orderItem = OrderItem::where('order_id', $order->id)->first();
             $reserveMeeting = ReserveMeeting::where('id', $orderItem->reserve_meeting_id)->first();
             $reserveMeeting->update(['locked_at' => time()]);
         }
-
         if ($gateway === 'credit') {
-
             if ($user->getAccountingCharge() < $order->total_amount) {
                 $order->update(['status' => Order::$fail]);
-
                 session()->put($this->order_session_key, $order->id);
-
                 return redirect('/payments/status');
             }
-
             $order->update([
                 'payment_method' => Order::$credit
             ]);
-
             $this->setPaymentAccounting($order, 'credit');
-
             $order->update([
                 'status' => Order::$paid
             ]);
-
             session()->put($this->order_session_key, $order->id);
-
             return redirect('/payments/status');
         }
-
         $paymentChannel = PaymentChannel::where('id', $gateway)
             ->where('status', 'active')
             ->first();
-
         if (!$paymentChannel) {
             $toastData = [
                 'title' => trans('cart.fail_purchase'),
@@ -82,23 +72,16 @@ class PaymentController extends Controller
             ];
             return back()->with(['toast' => $toastData]);
         }
-
         $order->payment_method = Order::$paymentChannel;
         $order->save();
-
-
         try {
             $channelManager = ChannelManager::makeChannel($paymentChannel);
             $redirect_url = $channelManager->paymentRequest($order);
-
             if (in_array($paymentChannel->class_name, PaymentChannel::$gatewayIgnoreRedirect)) {
                 return $redirect_url;
             }
-
             return Redirect::away($redirect_url);
-
         } catch (\Exception $exception) {
-
             $toastData = [
                 'title' => trans('cart.fail_purchase'),
                 'msg' => trans('cart.gateway_error'),

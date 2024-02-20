@@ -243,7 +243,6 @@ class SaleController extends Controller
         $sale = Sale::where('id', $id)
             ->with([
                 'order',
-
                 'buyer' => function ($query) {
                     $query->select('id', 'full_name');
                 },
@@ -265,8 +264,7 @@ class SaleController extends Controller
                     ]);
                 }
             ])
-            ->first();
-
+            ->first();  
         if (!empty($sale)) {
             $webinar = $sale->webinar;
 

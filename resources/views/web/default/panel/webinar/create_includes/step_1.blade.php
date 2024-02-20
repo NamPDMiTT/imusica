@@ -24,7 +24,6 @@
                 <option value="course" @if(!empty($webinar) and $webinar->type == 'course') selected @endif>{{ trans('webinars.video_course') }}</option>
                 {{-- <option>{{ trans('webinars.text_lesson') }} (Paid Plugin)</option> --}}
             </select>
-
             @error('type')
             <div class="invalid-feedback">
                 {{ $message }}

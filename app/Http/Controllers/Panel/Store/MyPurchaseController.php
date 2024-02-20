@@ -40,28 +40,23 @@ class MyPurchaseController extends Controller
             ->whereHas('sale', function ($query) {
                 $query->whereIn('type', ['product', 'gift']);
                 $query->where('access_to_purchased_item', true);
-                $query->whereNull('refund_at');
+                // $query->whereNull('refund_at');
             });
-
         $totalOrders = deepClone($query)->count();
         $pendingOrders = deepClone($query)->where(function ($query) {
             $query->where('status', ProductOrder::$waitingDelivery)
                 ->orWhere('status', ProductOrder::$shipped);
         })->count();
         $canceledOrders = deepClone($query)->where('status', ProductOrder::$canceled)->count();
-
         $totalPurchase = deepClone($query)
             ->join('sales', 'sales.product_order_id', 'product_orders.id')
             ->select(DB::raw("sum(total_amount) as totalAmount"))
             ->first();
-
         $sellerIds = deepClone($query)->pluck('seller_id')->toArray();
         $sellers = User::select('id', 'full_name')
             ->whereIn('id', array_unique($sellerIds))
             ->get();
-
         $query = $this->filters($query, $request);
-
         $orders = $query->orderBy('created_at', 'desc')
             ->with([
                 'product',
@@ -71,7 +66,6 @@ class MyPurchaseController extends Controller
                 }
             ])
             ->paginate(10);
-
         $data = [
             'pageTitle' => trans('update.product_purchases_lists_page_title'),
             'totalOrders' => $totalOrders,
@@ -201,13 +195,13 @@ class MyPurchaseController extends Controller
 
             if (!empty($productOrder->gift_id)) {
                 $gift = $productOrder->gift;
-
                 $productOrder->buyer = $gift->user;
             }
-
+            $order = $productOrder->sale->order;
             $data = [
                 'pageTitle' => trans('webinars.invoice_page_title'),
-                'order' => $productOrder,
+                'productOrder' => $productOrder,
+                'order' => $order,
                 'product' => $productOrder->product,
                 'sale' => $productOrder->sale,
                 'seller' => $productOrder->seller,

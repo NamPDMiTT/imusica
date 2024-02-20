@@ -18,9 +18,7 @@
 
     $('body').on('click', '#paymentSubmit', function (e) {
         e.preventDefault();
-
         $(this).addClass('loadingbar primary').prop('disabled', true);
-
         if (gateway === 'Razorpay') {
             $('.razorpay-payment-button').trigger('click');
         } else {

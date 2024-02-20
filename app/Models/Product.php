@@ -338,7 +338,7 @@ class Product extends Model implements TranslatableContract
     {
         $tax = 0;
 
-        if (!empty($this->tax)) {
+        if (!empty($this->tax) || $this->tax >= 0) {
             $tax = $this->tax;
         } else {
             $getStoreSettings = getStoreSettings();
@@ -347,7 +347,6 @@ class Product extends Model implements TranslatableContract
                 $tax = $getStoreSettings['store_tax'];
             } else {
                 $financialSettings = getFinancialSettings();
-
                 if (!empty($financialSettings['tax'])) {
                     $tax = $financialSettings['tax'];
                 }
