@@ -81,7 +81,7 @@ class DocumentController extends Controller
 
         $this->validate($request, [
             'currency' => 'required',
-            'amount' => 'required',
+            'amount' => 'required|max:11',
             'user_id' => 'required|exists:users,id',
             'type' => 'required',
         ]);

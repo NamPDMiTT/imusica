@@ -26,9 +26,9 @@
                         </span>
 
                 @if(!empty($cardUserBadges) and count($cardUserBadges))
-                    <div class="d-flex align-items-center justify-content-center w-100">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center mt-20 w-100">
                         @foreach($cardUserBadges as $badge)
-                            <div class="mr-10 mt-4" data-toggle="tooltip" data-placement="bottom" data-html="true" title="{!! (!empty($badge->badge_id) ? nl2br($badge->badge->description) : nl2br($badge->description)) !!}">
+                            <div class="mr-10 mt-10" data-toggle="tooltip" data-placement="bottom" data-html="true" title="{!! (!empty($badge->badge_id) ? nl2br($badge->badge->description) : nl2br($badge->description)) !!}">
                                 <img src="{{ !empty($badge->badge_id) ? $badge->badge->image : $badge->image }}" width="32" height="32" alt="{{ !empty($badge->badge_id) ? $badge->badge->title : $badge->title }}">
                             </div>
                         @endforeach
@@ -148,15 +148,15 @@
                             @endif
                         @endif
 
-                        <div class="topic-post-like-btn d-flex align-items-center">
-                            <span type="button" class="badge-icon d-flex align-items-center justify-content-center">
-                                <i class="fa fa-heart"></i>
-                            </span>
-                            <div class="font-12 font-weight-normal">
-                                <span class="js-like-count">{{ !empty($post) ? $post->likes->count() : $topic->likes->count() }}</span>
-                                {{ trans('update.likes') }}
-                            </div>
-                        </div>
+{{--                        <div class="topic-post-like-btn d-flex align-items-center">--}}
+{{--                            <span type="button" class="badge-icon d-flex align-items-center justify-content-center">--}}
+{{--                                <i class="fa fa-heart"></i>--}}
+{{--                            </span>--}}
+{{--                            <div class="font-12 font-weight-normal">--}}
+{{--                                <span class="js-like-count">{{ !empty($post) ? $post->likes->count() : $topic->likes->count() }}</span>--}}
+{{--                                {{ trans('update.likes') }}--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>

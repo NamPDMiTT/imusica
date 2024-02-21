@@ -122,7 +122,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="input-label">{{ trans('update.bundle') }}</label>
-                                        <select name="bundle_ids[]" multiple="multiple" class="form-control search-bundle-select2 " data-placeholder="Search bundles">
+                                        <select name="bundle_ids[]" multiple="multiple" class="form-control search-bundle-select2 " data-placeholder="{{ trans('admin/main.search_bundle') }}">
 
                                             @if(!empty($bundles) and $bundles->count() > 0)
                                                 @foreach($bundles as $bundle)
@@ -136,7 +136,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="input-label">{{ trans('admin/main.blog') }}</label>
-                                        <select name="post_ids[]" multiple="multiple" class="form-control search-blog-select2 " data-placeholder="Search blog">
+                                        <select name="post_ids[]" multiple="multiple" class="form-control search-blog-select2 " data-placeholder="{{ trans('admin/main.search_blog') }}">
 
                                             @if(!empty($blog) and $blog->count() > 0)
                                                 @foreach($blog as $post)
@@ -150,7 +150,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="input-label">{{ trans('update.products') }}</label>
-                                        <select name="product_ids[]" multiple="multiple" class="form-control search-product-select2 " data-placeholder="Search products">
+                                        <select name="product_ids[]" multiple="multiple" class="form-control search-product-select2 " data-placeholder="{{ trans('admin/main.search_product') }}">
 
                                             @if(!empty($products) and $products->count() > 0)
                                                 @foreach($products as $product)
@@ -167,7 +167,7 @@
                                 <div class="form-group">
                                     <label class="input-label">{{ trans('admin/main.user') }}</label>
                                     <select name="user_ids[]" multiple="multiple" class="form-control search-user-select2"
-                                            data-placeholder="Search users">
+                                            data-placeholder="{{ trans('admin/main.search_users') }}">
 
                                         @if(!empty($users) and $users->count() > 0)
                                             @foreach($users as $user)
@@ -221,7 +221,8 @@
                                                 <button type="button" class="js-show-description btn btn-outline-primary">{{ trans('admin/main.show') }}</button>
                                                 <input type="hidden" value="{!! nl2br($comment->comment) !!}">
                                             </td>
-                                            <td>{{ dateTimeFormat($comment->created_at, 'j M Y | H:i') }}</td>
+{{--                                            <td>{{ dateTimeFormat($comment->created_at, 'j M Y | H:i') }}</td>--}}
+                                            <td>{{ date('d/m/Y H:i', $comment->created_at) }}</td>
                                             <td class="text-left">
                                                 <a href="{{ $comment->user->getProfileUrl() }}" target="_blank" class="">{{ $comment->user->full_name }}</a>
                                             </td>

@@ -64,7 +64,7 @@
                         <i class="fas fa-users"></i></div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>{{trans('admin/main.total_reservatores')}}</h4>
+                            <h4>{{trans('admin/main.consultant')}}</h4>
                         </div>
                         <div class="card-body">
                             {{ $totalConsultants }}
@@ -138,8 +138,8 @@
                                 <div class="form-group">
                                     <label class="input-label">{{trans('admin/main.consultant')}}</label>
 
-                                    <select name="consultant_ids[]" multiple="multiple" data-search-option="consultants" class="form-control search-user-select2"
-                                            data-placeholder="Search Consultants">
+                                    <select name="consultant_ids[]" multiple="multiple" class="form-control search-user-select2"
+                                            data-placeholder="">
 
                                         @if(!empty($consultants) and $consultants->count() > 0)
                                             @foreach($consultants as $teacher)
@@ -153,10 +153,10 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="input-label">{{trans('admin/main.reservatore')}}</label>
+                                    <label class="input-label">{{trans('admin/main.student')}}</label>
 
                                     <select name="user_ids[]" multiple="multiple" class="form-control search-user-select2"
-                                            data-placeholder="Search Reservatores">
+                                            data-placeholder="">
 
                                         @if(!empty($users) and $users->count() > 0)
                                             @foreach($users as $user)
@@ -187,7 +187,7 @@
 
                             <tr>
                                 <th class="text-left">{{trans('admin/main.consultant')}}</th>
-                                <th class="text-left">{{trans('admin/main.reservatore')}}</th>
+                                <th class="text-left">{{trans('admin/main.student')}}</th>
                                 <th class="text-center">{{ trans('update.meeting_type') }}</th>
                                 <th class="text-center">{{trans('admin/main.cost')}}</th>
                                 <th class="text-center">{{trans('admin/main.date')}}</th>
