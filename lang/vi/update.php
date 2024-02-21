@@ -5,7 +5,7 @@ return [
     'chat' => 'Trò chuyện',
     'record' => 'Ghi âm',
     'features' => 'Tính năng',
-    
+
     'resolution' => 'Độ phân giải',
     'max_bitrate' => 'Bitrate tối đa',
     'min_bitrate' => 'Bitrate tối thiểu',
@@ -301,7 +301,7 @@ return [
 'registration_package' => 'Gói SaaS',
 'registration_packages' => 'Gói SaaS',
 'instructors_count' => 'Số người hướng dẫn',
-'students_count' => 'Đếm số học viên',
+'students_count' => 'Số học viên',
 'courses_capacity' => 'Dung lượng khóa học',
 'courses_count' => 'Đếm số khóa học',
 'meeting_count' => 'Các khoảng thời gian giữa các cuộc họp',
@@ -1313,7 +1313,7 @@ return [
 "this_course_includes" => "khóa học này bao gồm",
 "report_this_course" => "Báo cáo khóa học này",
 "course_specifications" => "Thông số của khóa học",
-"course_description" => "Mô tả khóa học", 
+"course_description" => "Mô tả khóa học",
 "unfollow_course" => "Bỏ theo dõi khóa học",
 "the_course_has_been_added_to_your_follow_list" => "khóa học đã được thêm vào danh sách theo dõi của bạn",
 "the_course_has_been_removed_from_your_follow_list" => "khóa học đã bị xóa khỏi danh sách theo dõi của bạn",
@@ -2129,5 +2129,5 @@ return [
     'admin_registration_packages_ai_content_access_hint' => 'Kích hoạt quyền truy cập trình tạo nội dung AI cho gói này',
     'enable_ai_content' => 'َKích hoạt Trình tạo Nội dung AI',
     'admin_user_edit_enable_ai_content_hint' => 'Người dùng có thể sử dụng trình tạo nội dung AI',
-    
+
 ];

@@ -177,7 +177,7 @@ return [
 
 //Meetings
 
-    'consultant' => 'Tư vấn',
+    'consultant' => 'Người hướng dẫn',
     'consultants' => 'Nhà tư vấn',
     'reservatore' => 'Kho lưu trữ',
     'total_reservatores' => 'Tổng trữ lượng',
@@ -1056,7 +1056,7 @@ return [
     'open_appointments' => 'Cuộc họp mở',
     'finished_appointments' => 'Cuộc họp đã kết thúc',
     'total_consultants' => 'Tổng số tư vấn',
-    'total_comments' => 'Tổng số ý kiến',
+    'total_comments' => 'Tổng số bình luận',
     'published_comments' => 'Bình luận đã xuất bản',
     'pending_comments' => 'Bình luận đang chờ xử lý',
     'available_consultants' => 'Tư vấn có sẵn',
@@ -1582,4 +1582,7 @@ return [
     'Type tag name and press enter (Max : 5)' => 'Nhập tên thẻ và nhấn Enter (Tối đa: 5)',
     'select_a_category' => 'Chọn một danh mục',
     'search_class' => 'Tìm kiếm lớp học',
+    'search_bundle' => 'Tìm kiếm gói',
+    'search_blog' => 'Tìm kiếm blog',
+    'search_product' => 'Tìm kiếm sản phẩm',
 ];

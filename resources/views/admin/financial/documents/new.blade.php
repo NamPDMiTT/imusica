@@ -42,7 +42,7 @@
 
                             <div class="form-group">
                                 <label class="control-label">{{ trans('admin/main.amount') }} ({{ currencySign(getDefaultCurrency()) }})</label>
-                                <input type="text" name="amount" class="form-control @error('amount') is-invalid @enderror">
+                                <input type="number" name="amount" min="0" class="form-control @error('amount') is-invalid @enderror">
 
                                 @error('amount')
                                 <div class="invalid-feedback">

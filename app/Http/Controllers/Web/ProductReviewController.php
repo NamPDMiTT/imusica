@@ -57,7 +57,7 @@ class ProductReviewController extends Controller
                     'seller_quality' => (int)$data['seller_quality'],
                     'rates' => $rates > 0 ? $rates / 4 : 0,
                     'description' => $data['description'],
-                    'status' => 'pending',
+                    'status' => 'active',
                     'created_at' => time(),
                 ]);
 

@@ -121,7 +121,7 @@ class CommentsController extends Controller
         $status = $request->get('status', null);
 
         if (!empty($title)) {
-            $query->where('title', 'like', "%$title%");
+            $query->where('comment', 'like', "%$title%");
         }
 
         if (!empty($date)) {
