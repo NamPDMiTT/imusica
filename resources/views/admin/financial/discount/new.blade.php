@@ -50,6 +50,7 @@
                                     <label class="input-label d-block">{{ trans('update.source') }}</label>
                                     <select name="source" class="js-discount-source form-control @error('source') is-invalid @enderror">
                                         @foreach(\App\Models\Discount::$discountSource as $source)
+                                            @if($source == 'course' || $source == 'bundle') @continue @endif
                                             <option value="{{ $source }}" {{ (!empty($discount) and $discount->source == $source) ? 'selected' : '' }}>{{ trans('update.discount_source_'.$source) }}</option>
                                         @endforeach
                                     </select>
