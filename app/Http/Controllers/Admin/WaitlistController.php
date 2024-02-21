@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Waitlist;
 use App\Models\Webinar;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Maatwebsite\Excel\Facades\Excel;
 
 class WaitlistController extends Controller
@@ -19,7 +20,7 @@ class WaitlistController extends Controller
 
         $waitlists = Webinar::query()
             ->where('enable_waitlist', true)
-            ->paginate(10);
+            ->get();
 
         foreach ($waitlists as $waitlist) {
             $query = Waitlist::query()->where('webinar_id', $waitlist->id);
@@ -33,6 +34,15 @@ class WaitlistController extends Controller
                 $waitlist->last_submission = $lastSubmission->created_at;
             }
         }
+
+        $waitlists = $waitlists->sortByDesc('last_submission');
+
+        $page = $request->has('page') ? $request->query('page') : 1;
+        $perPage = 10;
+        $currentPageItems = array_slice($waitlists->all(), ($page - 1) * $perPage, $perPage);
+        $waitlists = new LengthAwarePaginator($currentPageItems, count($waitlists), $perPage, $page);
+
+        $waitlists->withPath(route('admin.waitlists.index'));
 
         $data = [
             'pageTitle' => trans('update.waitlists'),

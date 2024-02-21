@@ -1029,7 +1029,7 @@ Route::group(['prefix' => $prefix, 'namespace' => 'Admin', 'middleware' => ['web
 
 
         Route::group(['prefix' => 'waitlists'], function () {
-            Route::get('/', 'WaitlistController@index');
+            Route::get('/', 'WaitlistController@index')->name('admin.waitlists.index');
             Route::get('/export', 'WaitlistController@exportExcel');
             Route::get('/{id}/view_list', 'WaitlistController@viewList');
             Route::get('/{id}/clear_list', 'WaitlistController@clearList');
