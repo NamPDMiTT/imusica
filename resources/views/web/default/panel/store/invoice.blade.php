@@ -37,7 +37,8 @@
                                                     <div class="col-lg-12">
                                                         <div class="invoice-title">
                                                             <h2>{{ $generalSettings['site_name'] }}</h2>
-                                                            <div class="invoice-number">{{ trans('public.item_id') }}: #{{ $order->product_id }}</div>
+                                                            <div class="invoice-number">{{ trans('public.item_id') }}:
+                                                                #{{ $order->product_id }}</div>
                                                         </div>
                                                         <hr>
                                                         <div class="row">
@@ -52,13 +53,15 @@
                                                                     {{ $order->mobile ? $order->mobile : $buyer->mobile}}
                                                                 </address>
                                                                 <address class="mt-2">
-                                                                    <strong>{{ trans('update.buyer_address') }}:</strong><br>
+                                                                    <strong>{{ trans('update.buyer_address') }}
+                                                                        :</strong><br>
                                                                     {{ $order->address ? $order->address : $buyer->getAddress(true)}}
                                                                 </address>
                                                             </div>
                                                             <div class="col-md-6 text-md-right">
                                                                 <address>
-                                                                    <strong>{{ trans('home.platform_address') }}:</strong><br>
+                                                                    <strong>{{ trans('home.platform_address') }}
+                                                                        :</strong><br>
                                                                     {!! nl2br(getContactPageSettings('address')) !!}
                                                                 </address>
                                                             </div>
@@ -66,7 +69,8 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <address>
-                                                                    <strong>{{ trans('admin/main.seller') }}:</strong><br>
+                                                                    <strong>{{ trans('admin/main.seller') }}
+                                                                        :</strong><br>
                                                                     {{ $seller->full_name }}
                                                                 </address>
                                                             </div>
@@ -74,7 +78,8 @@
                                                             <div class="col-md-6 text-md-right">
                                                                 <address>
                                                                     <strong>{{ trans('panel.purchase_date') }}:</strong><br>
-                                                                    {{ dateTimeFormat($sale->created_at,'Y M j | H:i') }}<br><br>
+                                                                    {{ dateTimeFormat($sale->created_at,'Y M j | H:i') }}
+                                                                    <br><br>
                                                                 </address>
                                                             </div>
                                                         </div>
@@ -83,7 +88,8 @@
 
                                                 <div class="row mt-4">
                                                     <div class="col-md-12">
-                                                        <div class="section-title">{{ trans('home.order_summary') }}</div>
+                                                        <div
+                                                            class="section-title">{{ trans('home.order_summary') }}</div>
                                                         <div class="table-responsive">
                                                             <table class="table table-striped table-hover table-md">
                                                                 <tr>
@@ -98,16 +104,16 @@
                                                                 <tr>
                                                                     <td class="text-center">
                                                                         <span>{{ !empty($product) ? $product->title : trans('update.delete_item') }}</span>
-                                                                        @if(!empty($productOrder->specifications))
+                                                                        @if(!empty($order->specifications))
                                                                             (
                                                                             <div class="d-inline-block">
-                                                                                @foreach(json_decode($productOrder->specifications,true) as $specificationKey => $specificationValue)
+                                                                                @foreach(json_decode($order->specifications,true) as $specificationKey => $specificationValue)
                                                                                     <span>{{ str_replace('_',' ',$specificationValue) }}{{ (!$loop->last) ? ', ' : '' }}</span>
                                                                                 @endforeach
                                                                             </div>)
                                                                         @endif
                                                                     </td>
-                                                                    <td class="text-center">{{ $productOrder->quantity }} {{ trans('cart.item') }}</td>
+                                                                    <td class="text-center">{{ $order->quantity }} {{ trans('cart.item') }}</td>
 
                                                                     <td class="text-center">
                                                                         @if(!empty($sale->amount))
@@ -144,23 +150,30 @@
 
                                                             <div class="col-lg-6 text-left">
                                                                 <div class="invoice-detail-item">
-                                                                    <div class="invoice-detail-name">{{ trans('admin/main.item') }}</div>
-                                                                    <div class="invoice-detail-value">{{ !empty($product) ? $product->title : trans('update.delete_item') }} {{ !empty($order->gift_id) ? "(".trans('update.gift').")" : '' }}</div>
+                                                                    <div
+                                                                        class="invoice-detail-name">{{ trans('admin/main.item') }}</div>
+                                                                    <div
+                                                                        class="invoice-detail-value">{{ !empty($product) ? $product->title : trans('update.delete_item') }} {{ !empty($order->gift_id) ? "(".trans('update.gift').")" : '' }}</div>
                                                                 </div>
 
                                                                 <div class="invoice-detail-item">
-                                                                    <div class="invoice-detail-name">{{ trans('update.quantity') }}</div>
-                                                                    <div class="invoice-detail-value">{{ $productOrder->quantity }} {{ trans('cart.item') }}</div>
+                                                                    <div
+                                                                        class="invoice-detail-name">{{ trans('update.quantity') }}</div>
+                                                                    <div
+                                                                        class="invoice-detail-value">{{ $order->quantity }} {{ trans('cart.item') }}</div>
                                                                 </div>
 
-                                                                @if(!empty($productOrder->specifications))
+                                                                @if(!empty($order->specifications))
                                                                     <div class="invoice-detail-item">
-                                                                        <div class="invoice-detail-name">{{ trans('update.specifications') }}</div>
+                                                                        <div
+                                                                            class="invoice-detail-name">{{ trans('update.specifications') }}</div>
 
-                                                                        @foreach(json_decode($productOrder->specifications,true) as $specificationKey => $specificationValue)
+                                                                        @foreach(json_decode($order->specifications,true) as $specificationKey => $specificationValue)
                                                                             <div class="invoice-detail-value">
-                                                                                <span class="">{{ $specificationKey }}</span>
-                                                                                <span class="ml-3">{{ str_replace('_',' ',$specificationValue) }}</span>
+                                                                                <span
+                                                                                    class="">{{ $specificationKey }}</span>
+                                                                                <span
+                                                                                    class="ml-3">{{ str_replace('_',' ',$specificationValue) }}</span>
                                                                             </div>
                                                                         @endforeach
                                                                     </div>
@@ -168,19 +181,24 @@
 
                                                                 @if(!empty($order->message_to_seller))
                                                                     <div class="invoice-detail-item">
-                                                                        <div class="invoice-detail-name">{{ trans('update.message_to_seller') }}</div>
-                                                                        <div class="invoice-detail-value">{!! $order->message_to_seller !!}</div>
+                                                                        <div
+                                                                            class="invoice-detail-name">{{ trans('update.message_to_seller') }}</div>
+                                                                        <div
+                                                                            class="invoice-detail-value">{!! $order->message_to_seller !!}</div>
                                                                     </div>
                                                                 @endif
                                                             </div>
 
                                                             <div class="col-lg-6 text-right">
                                                                 <div class="invoice-detail-item">
-                                                                    <div class="invoice-detail-name">{{ trans('cart.sub_total') }}</div>
-                                                                    <div class="invoice-detail-value">{{ handlePrice($sale->amount) }}</div>
+                                                                    <div
+                                                                        class="invoice-detail-name">{{ trans('cart.sub_total') }}</div>
+                                                                    <div
+                                                                        class="invoice-detail-value">{{ handlePrice($sale->amount) }}</div>
                                                                 </div>
                                                                 <div class="invoice-detail-item">
-                                                                    <div class="invoice-detail-name">{{ trans('cart.tax') }} @if(!empty($product))
+                                                                    <div
+                                                                        class="invoice-detail-name">{{ trans('cart.tax') }} @if(!empty($product))
                                                                             ({{ $product->getTax() }}%)
                                                                         @endif</div>
                                                                     <div class="invoice-detail-value">
@@ -192,7 +210,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="invoice-detail-item">
-                                                                    <div class="invoice-detail-name">{{ trans('public.discount') }}</div>
+                                                                    <div
+                                                                        class="invoice-detail-name">{{ trans('public.discount') }}</div>
                                                                     <div class="invoice-detail-value">
                                                                         @if(!empty($sale->discount))
                                                                             {{ handlePrice($sale->discount) }}
@@ -203,7 +222,8 @@
                                                                 </div>
 
                                                                 <div class="invoice-detail-item">
-                                                                    <div class="invoice-detail-name">{{ trans('update.delivery_fee') }}</div>
+                                                                    <div
+                                                                        class="invoice-detail-name">{{ trans('update.delivery_fee') }}</div>
                                                                     <div class="invoice-detail-value">
                                                                         @if(!empty($sale->product_delivery_fee))
                                                                             {{ handlePrice($sale->product_delivery_fee) }}
@@ -214,8 +234,10 @@
                                                                 </div>
                                                                 <hr class="mt-2 mb-2">
                                                                 <div class="invoice-detail-item">
-                                                                    <div class="invoice-detail-name">{{ trans('cart.total') }}</div>
-                                                                    <div class="invoice-detail-value invoice-detail-value-lg">
+                                                                    <div
+                                                                        class="invoice-detail-name">{{ trans('cart.total') }}</div>
+                                                                    <div
+                                                                        class="invoice-detail-value invoice-detail-value-lg">
                                                                         @if(!empty($sale->total_amount))
                                                                             {{ handlePrice($sale->total_amount) }}
                                                                         @else
@@ -231,7 +253,10 @@
                                             <hr>
                                             <div class="text-md-right">
 
-                                                <button type="button" onclick="window.print()" class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
+                                                <button type="button" onclick="window.print()"
+                                                        class="btn btn-warning btn-icon icon-left"><i
+                                                        class="fas fa-print"></i> {{ trans('public.print') }}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -249,3 +274,4 @@
     </section>
 </div>
 </body>
+</html>

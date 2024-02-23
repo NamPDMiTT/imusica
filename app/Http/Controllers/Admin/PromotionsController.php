@@ -46,7 +46,7 @@ class PromotionsController extends Controller
         $this->validate($request, [
             'title' => 'required|string',
             'days' => 'required|numeric',
-            'price' => 'required|numeric',
+            'price' => 'required|max:11',
             'icon' => 'required|string',
             'description' => 'required|string',
         ]);
@@ -99,7 +99,7 @@ class PromotionsController extends Controller
         $this->validate($request, [
             'title' => 'required|string',
             'days' => 'required|numeric',
-            'price' => 'required|numeric',
+            'price' => 'required|max:11',
             'icon' => 'required|string',
             'description' => 'required|string',
         ]);

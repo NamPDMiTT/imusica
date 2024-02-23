@@ -96,23 +96,23 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <input type="hidden" id="LocationLatitude" name="latitude" value="{{ $latitude }}">
-                                    <input type="hidden" id="LocationLongitude" name="longitude" value="{{ $longitude }}">
+{{--                            <div class="col-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <input type="hidden" id="LocationLatitude" name="latitude" value="{{ $latitude }}">--}}
+{{--                                    <input type="hidden" id="LocationLongitude" name="longitude" value="{{ $longitude }}">--}}
 
-                                    <label class="input-label">{{ trans('update.select_location') }}</label>
-                                    <span class="d-block">{{ trans('update.select_location_hint') }}</span>
+{{--                                    <label class="input-label">{{ trans('update.select_location') }}</label>--}}
+{{--                                    <span class="d-block">{{ trans('update.select_location_hint') }}</span>--}}
 
-                                    <div class="region-map mt-2" id="mapBox"
-                                         data-latitude="{{ $latitude }}"
-                                         data-longitude="{{ $longitude }}"
-                                         data-zoom="{{ (!empty($region) and $region->type !== \App\Models\Region::$country and $region->type !== \App\Models\Region::$province and !empty($region->geo_center)) ? 12 : 5 }}"
-                                    >
-                                        <img src="/assets/default/img/location.png" class="marker">
-                                    </div>
-                                </div>
-                            </div>
+{{--                                    <div class="region-map mt-2" id="mapBox"--}}
+{{--                                         data-latitude="{{ $latitude }}"--}}
+{{--                                         data-longitude="{{ $longitude }}"--}}
+{{--                                         data-zoom="{{ (!empty($region) and $region->type !== \App\Models\Region::$country and $region->type !== \App\Models\Region::$province and !empty($region->geo_center)) ? 12 : 5 }}"--}}
+{{--                                    >--}}
+{{--                                        <img src="/assets/default/img/location.png" class="marker">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                         </div>
 
                         <button type="submit" class="btn btn-success mt-4">{{ trans('admin/main.save') }}</button>
