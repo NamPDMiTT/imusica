@@ -413,7 +413,7 @@ class CartController extends Controller
             'city_id' => Rule::requiredIf($checkAddressValidation),
             'district_id' => Rule::requiredIf($checkAddressValidation),
             'address' => Rule::requiredIf($checkAddressValidation),
-            'mobile' => "required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:14"
+//            'mobile' => "required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:14"
         ]);
         $discountId = $request->input('discount_id');
         $paymentChannels = PaymentChannel::where('status', 'active')->get();

@@ -31,7 +31,7 @@ class BlogController extends Controller
             ->paginate(10);
 
         $blogCategories = BlogCategory::all();
-        $adminRoleIds = Role::where('is_admin', true)->pluck('id')->toArray();
+        $adminRoleIds = Role::whereIn('name', ['teacher', 'education'])->pluck('id')->toArray();
         $authors = User::select('id', 'full_name', 'role_id')->whereIn('role_id', $adminRoleIds)->get();
 
         $data = [

@@ -76,7 +76,7 @@
 
                                 <div class="form-group">
                                     <label>{{ trans('admin/main.price') }} ({{ $currency }})</label>
-                                    <input type="text" name="price"
+                                    <input type="number" name="price" min="0"
                                            class="form-control  @error('price') is-invalid @enderror"
                                            value="{{ !empty($promotion) ? $promotion->price : old('price') }}"/>
                                     @error('price')
@@ -140,4 +140,3 @@
         </div>
     </section>
 @endsection
-
