@@ -437,7 +437,7 @@ return [
     'ext_date' => 'Ngày hết hạn',
     'percent' => 'Phần trăm',
     'amount' => 'Số tiền',
-    'paid_amount' => 'Số lượng',
+    'paid_amount' => 'Số tiền đã thanh toán',
     'amount_placeholder' => 'Số tiền chiết khấu tối đa cho mỗi đơn hàng.',
     'payout' => 'Thanh toán',
     'payouts' => 'Khoản thanh toán',

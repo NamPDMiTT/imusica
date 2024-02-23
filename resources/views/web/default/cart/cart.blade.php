@@ -56,7 +56,7 @@
                                             <a href="{{ $cartItemInfo['itemUrl'] ?? '#!' }}" target="_blank">
                                                 <h3 class="font-16 font-weight-bold text-dark-blue">{{ $cartItemInfo['title'] }}</h3>
                                             </a>
-                                            <p class="text-gray">{{ $cartItemInfo['category'] }}</p>
+                                            <p class="text-gray">{{ isset($cartItemInfo['category']) ?? $cartItemInfo['category'] }}</p>
                                             @if(!empty($cart->gift_id) and !empty($cart->gift))
                                                 <span class="d-block mt-5 text-gray font-12">{!! trans('update.a_gift_for_name_on_date',['name' => $cart->gift->name, 'date' => (!empty($cart->gift->date) ? dateTimeFormat($cart->gift->date, 'j M Y H:i') : trans('update.instantly'))]) !!}</span>
                                             @endif
@@ -129,15 +129,18 @@
         <form action="/cart/checkout" method="post" id="cartForm">
             {{ csrf_field() }}
             <input type="hidden" name="discount_id" value="">
+
             @if($hasPhysicalProduct)
                 @include('web.default.cart.includes.shipping_and_delivery')
             @endif
+
             <div class="row mt-30">
                 <div class="col-12 col-lg-6">
                     <section class="mt-45">
                         <h3 class="section-title">{{ trans('cart.coupon_code') }}</h3>
                         <div class="rounded-sm shadow mt-20 py-25 px-20">
                             <p class="text-gray font-14">{{ trans('cart.coupon_code_hint') }}</p>
+
                             @if(!empty($userGroup) and !empty($userGroup->discount))
                                 <p class="text-gray mt-25">{{ trans('cart.in_user_group',['group_name' => $userGroup->name , 'percent' => $userGroup->discount]) }}</p>
                             @endif
@@ -174,7 +177,7 @@
                                 <span id="totalDiscount">{{ handlePrice($totalDiscount) }}</span>
                             </span>
                             </div>
-                            
+
                             <div class="cart-checkout-item">
                                 <h4 class="text-secondary font-14 font-weight-500">{{ trans('cart.tax') }}
                                     @if(!$taxIsDifferent)

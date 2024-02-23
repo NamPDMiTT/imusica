@@ -372,7 +372,7 @@ return [
     'zoom_jwt_token' => 'Zoom JWT Token',
  	  'how_zoom_jwt_token' => 'Cách tạo mã JWT Zoom',
     'instructor_is_not_available' => 'Người hướng dẫn tạm thời không có mặt',
-  
+
     'chapter' => 'Mục',
     'chapters' => 'Mục',
     'add_new_chapter' => 'Thêm mục mới',
@@ -390,4 +390,5 @@ return [
     'forbidden_request_toast_lang' => 'Yêu cầu "Không được phép"',
     'forbidden_request_toast_msg_lang' => 'Bạn không có quyền truy cập vào nội dung này',
 
+    'print' => 'In',
 ];

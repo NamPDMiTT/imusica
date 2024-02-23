@@ -38,7 +38,7 @@
 
         <div class="form-group js-inventory-inputs {{ (!empty($product) and $product->unlimited_inventory) ? 'd-none' : '' }}">
             <label class="input-label">{{ trans('update.inventory') }}</label>
-            <input type="number" name="inventory" value="{{ (!empty($product) and $product->getAvailability() != 99999) ? $product->getAvailability() : old('inventory') }}" class="form-control @error('inventory')  is-invalid @enderror" placeholder=""/>
+            <input type="number" name="inventory" value="{{ !empty($product) ? $product->inventory : old('inventory') }}" class="form-control @error('inventory')  is-invalid @enderror" placeholder=""/>
             @error('inventory')
             <div class="invalid-feedback">
                 {{ $message }}

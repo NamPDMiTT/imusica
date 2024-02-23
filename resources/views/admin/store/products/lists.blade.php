@@ -257,11 +257,12 @@
 
                                             <td>
                                                 <span class="text-primary mt-0 mb-1 font-weight-bold">
-                                                    @php
-                                                        $getAvailability = $product->getAvailability();
-                                                    @endphp
+{{--                                                    @php--}}
+{{--                                                        $getAvailability = $product->getAvailability();--}}
+{{--                                                    @endphp--}}
 
-                                                    {{ ($getAvailability == 99999) ? trans('update.unlimited') : $getAvailability }}
+{{--                                                    {{ ($getAvailability == 99999) ? trans('update.unlimited') : $getAvailability }}--}}
+                                                    {{ $product->inventory }}
                                                 </span>
                                             </td>
 
