@@ -28,7 +28,7 @@ return [
     'coupon_code_hint' => 'Nếu bạn có mã ưu đãi, hãy chèn mã vào ô dưới đây và nhấn nút "Xác nhận".',
     'coupon_valid' => 'Mã ưu đãi hợp lệ',
     'coupon_invalid' => 'Mã ưu đãi không hợp lệ, hãy chắc chắn rằng nó đúng.',
-    'in_user_group' => 'Bạn đang ở nhóm ":tên_nhóm" và bạn sẽ nhận được :phần_trăm% giảm giá thêm.',
+    'in_user_group' => 'Bạn đang ở nhóm ":group_name" và bạn sẽ nhận được :percent% giảm giá thêm.',
     'enter_your_code_here' => 'Nhập mã ưu đãi tại đây',
     'validate' => 'Xác nhận',
     'cart_totals' => 'Tổng giỏ hàng',

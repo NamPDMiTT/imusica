@@ -32,7 +32,7 @@ return [
     'duration' => 'Thời lượng',
     'minutes' => 'Phút',
     'min' => 'Tối thiểu',
-    'view' => 'View',
+    'view' => 'Xem',
     'view_profile' => 'Xem hồ sơ',
     'review_or_edit' => 'Xem xét/Chỉnh sửa',
     'review' => 'Đánh giá',

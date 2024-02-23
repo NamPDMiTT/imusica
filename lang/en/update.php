@@ -2123,5 +2123,5 @@ return [
 'admin_registration_packages_ai_content_access_hint' => 'Enable AI content generator access for this plan',
 'enable_ai_content' => 'َEnabe AI Content Generator',
 'admin_user_edit_enable_ai_content_hint' => 'The user can use AI content generator',
-
+'mobile' => 'Mobile',
 ];
