@@ -194,28 +194,28 @@
             </li>
         @endif
 
-        @if($authUser->isOrganization() or $authUser->isTeacher())
-            <li class="sidenav-item {{ (request()->is('panel/bundles') or request()->is('panel/bundles/*')) ? 'sidenav-item-active' : '' }}">
-                <a class="d-flex align-items-center" data-toggle="collapse" href="#bundlesCollapse" role="button" aria-expanded="false" aria-controls="bundlesCollapse">
-                <span class="sidenav-item-icon assign-fill mr-10">
-                    @include('web.default.panel.includes.sidebar_icons.bundles')
-                </span>
-                    <span class="font-14 text-dark-blue font-weight-500">{{ trans('update.bundles') }}</span>
-                </a>
+{{--        @if($authUser->isOrganization() or $authUser->isTeacher())--}}
+{{--            <li class="sidenav-item {{ (request()->is('panel/bundles') or request()->is('panel/bundles/*')) ? 'sidenav-item-active' : '' }}">--}}
+{{--                <a class="d-flex align-items-center" data-toggle="collapse" href="#bundlesCollapse" role="button" aria-expanded="false" aria-controls="bundlesCollapse">--}}
+{{--                <span class="sidenav-item-icon assign-fill mr-10">--}}
+{{--                    @include('web.default.panel.includes.sidebar_icons.bundles')--}}
+{{--                </span>--}}
+{{--                    <span class="font-14 text-dark-blue font-weight-500">{{ trans('update.bundles') }}</span>--}}
+{{--                </a>--}}
 
-                <div class="collapse {{ (request()->is('panel/bundles') or request()->is('panel/bundles/*')) ? 'show' : '' }}" id="bundlesCollapse">
-                    <ul class="sidenav-item-collapse">
-                        <li class="mt-5 {{ (request()->is('panel/bundles/new')) ? 'active' : '' }}">
-                            <a href="/panel/bundles/new">{{ trans('public.new') }}</a>
-                        </li>
+{{--                <div class="collapse {{ (request()->is('panel/bundles') or request()->is('panel/bundles/*')) ? 'show' : '' }}" id="bundlesCollapse">--}}
+{{--                    <ul class="sidenav-item-collapse">--}}
+{{--                        <li class="mt-5 {{ (request()->is('panel/bundles/new')) ? 'active' : '' }}">--}}
+{{--                            <a href="/panel/bundles/new">{{ trans('public.new') }}</a>--}}
+{{--                        </li>--}}
 
-                        <li class="mt-5 {{ (request()->is('panel/bundles')) ? 'active' : '' }}">
-                            <a href="/panel/bundles">{{ trans('update.my_bundles') }}</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        @endif
+{{--                        <li class="mt-5 {{ (request()->is('panel/bundles')) ? 'active' : '' }}">--}}
+{{--                            <a href="/panel/bundles">{{ trans('update.my_bundles') }}</a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </li>--}}
+{{--        @endif--}}
 
         @if(getFeaturesSettings('webinar_assignment_status'))
             <li class="sidenav-item {{ (request()->is('panel/assignments') or request()->is('panel/assignments/*')) ? 'sidenav-item-active' : '' }}">
@@ -272,70 +272,70 @@
             </div>
         </li>
 
-        <li class="sidenav-item {{ (request()->is('panel/quizzes') or request()->is('panel/quizzes/*')) ? 'sidenav-item-active' : '' }}">
-            <a class="d-flex align-items-center" data-toggle="collapse" href="#quizzesCollapse" role="button" aria-expanded="false" aria-controls="quizzesCollapse">
-                <span class="sidenav-item-icon mr-10">
-                    @include('web.default.panel.includes.sidebar_icons.quizzes')
-                </span>
-                <span class="font-14 text-dark-blue font-weight-500">{{ trans('panel.quizzes') }}</span>
-            </a>
+{{--        <li class="sidenav-item {{ (request()->is('panel/quizzes') or request()->is('panel/quizzes/*')) ? 'sidenav-item-active' : '' }}">--}}
+{{--            <a class="d-flex align-items-center" data-toggle="collapse" href="#quizzesCollapse" role="button" aria-expanded="false" aria-controls="quizzesCollapse">--}}
+{{--                <span class="sidenav-item-icon mr-10">--}}
+{{--                    @include('web.default.panel.includes.sidebar_icons.quizzes')--}}
+{{--                </span>--}}
+{{--                <span class="font-14 text-dark-blue font-weight-500">{{ trans('panel.quizzes') }}</span>--}}
+{{--            </a>--}}
 
-            <div class="collapse {{ (request()->is('panel/quizzes') or request()->is('panel/quizzes/*')) ? 'show' : '' }}" id="quizzesCollapse">
-                <ul class="sidenav-item-collapse">
-                    @if($authUser->isOrganization() || $authUser->isTeacher())
-                        <li class="mt-5 {{ (request()->is('panel/quizzes/new')) ? 'active' : '' }}">
-                            <a href="/panel/quizzes/new">{{ trans('quiz.new_quiz') }}</a>
-                        </li>
-                        <li class="mt-5 {{ (request()->is('panel/quizzes')) ? 'active' : '' }}">
-                            <a href="/panel/quizzes">{{ trans('public.list') }}</a>
-                        </li>
-                        <li class="mt-5 {{ (request()->is('panel/quizzes/results')) ? 'active' : '' }}">
-                            <a href="/panel/quizzes/results">{{ trans('public.results') }}</a>
-                        </li>
-                    @endif
+{{--            <div class="collapse {{ (request()->is('panel/quizzes') or request()->is('panel/quizzes/*')) ? 'show' : '' }}" id="quizzesCollapse">--}}
+{{--                <ul class="sidenav-item-collapse">--}}
+{{--                    @if($authUser->isOrganization() || $authUser->isTeacher())--}}
+{{--                        <li class="mt-5 {{ (request()->is('panel/quizzes/new')) ? 'active' : '' }}">--}}
+{{--                            <a href="/panel/quizzes/new">{{ trans('quiz.new_quiz') }}</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="mt-5 {{ (request()->is('panel/quizzes')) ? 'active' : '' }}">--}}
+{{--                            <a href="/panel/quizzes">{{ trans('public.list') }}</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="mt-5 {{ (request()->is('panel/quizzes/results')) ? 'active' : '' }}">--}}
+{{--                            <a href="/panel/quizzes/results">{{ trans('public.results') }}</a>--}}
+{{--                        </li>--}}
+{{--                    @endif--}}
 
-                    <li class="mt-5 {{ (request()->is('panel/quizzes/my-results')) ? 'active' : '' }}">
-                        <a href="/panel/quizzes/my-results">{{ trans('public.my_results') }}</a>
-                    </li>
+{{--                    <li class="mt-5 {{ (request()->is('panel/quizzes/my-results')) ? 'active' : '' }}">--}}
+{{--                        <a href="/panel/quizzes/my-results">{{ trans('public.my_results') }}</a>--}}
+{{--                    </li>--}}
 
-                    <li class="mt-5 {{ (request()->is('panel/quizzes/opens')) ? 'active' : '' }}">
-                        <a href="/panel/quizzes/opens">{{ trans('public.not_participated') }}</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
+{{--                    <li class="mt-5 {{ (request()->is('panel/quizzes/opens')) ? 'active' : '' }}">--}}
+{{--                        <a href="/panel/quizzes/opens">{{ trans('public.not_participated') }}</a>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        </li>--}}
 
-        <li class="sidenav-item {{ (request()->is('panel/certificates') or request()->is('panel/certificates/*')) ? 'sidenav-item-active' : '' }}">
-            <a class="d-flex align-items-center" data-toggle="collapse" href="#certificatesCollapse" role="button" aria-expanded="false" aria-controls="certificatesCollapse">
-                <span class="sidenav-item-icon mr-10">
-                    @include('web.default.panel.includes.sidebar_icons.certificate')
-                </span>
-                <span class="font-14 text-dark-blue font-weight-500">{{ trans('panel.certificates') }}</span>
-            </a>
+{{--        <li class="sidenav-item {{ (request()->is('panel/certificates') or request()->is('panel/certificates/*')) ? 'sidenav-item-active' : '' }}">--}}
+{{--            <a class="d-flex align-items-center" data-toggle="collapse" href="#certificatesCollapse" role="button" aria-expanded="false" aria-controls="certificatesCollapse">--}}
+{{--                <span class="sidenav-item-icon mr-10">--}}
+{{--                    @include('web.default.panel.includes.sidebar_icons.certificate')--}}
+{{--                </span>--}}
+{{--                <span class="font-14 text-dark-blue font-weight-500">{{ trans('panel.certificates') }}</span>--}}
+{{--            </a>--}}
 
-            <div class="collapse {{ (request()->is('panel/certificates') or request()->is('panel/certificates/*')) ? 'show' : '' }}" id="certificatesCollapse">
-                <ul class="sidenav-item-collapse">
-                    @if($authUser->isOrganization() || $authUser->isTeacher())
-                        <li class="mt-5 {{ (request()->is('panel/certificates')) ? 'active' : '' }}">
-                            <a href="/panel/certificates">{{ trans('public.list') }}</a>
-                        </li>
-                    @endif
+{{--            <div class="collapse {{ (request()->is('panel/certificates') or request()->is('panel/certificates/*')) ? 'show' : '' }}" id="certificatesCollapse">--}}
+{{--                <ul class="sidenav-item-collapse">--}}
+{{--                    @if($authUser->isOrganization() || $authUser->isTeacher())--}}
+{{--                        <li class="mt-5 {{ (request()->is('panel/certificates')) ? 'active' : '' }}">--}}
+{{--                            <a href="/panel/certificates">{{ trans('public.list') }}</a>--}}
+{{--                        </li>--}}
+{{--                    @endif--}}
 
-                    <li class="mt-5 {{ (request()->is('panel/certificates/achievements')) ? 'active' : '' }}">
-                        <a href="/panel/certificates/achievements">{{ trans('quiz.achievements') }}</a>
-                    </li>
+{{--                    <li class="mt-5 {{ (request()->is('panel/certificates/achievements')) ? 'active' : '' }}">--}}
+{{--                        <a href="/panel/certificates/achievements">{{ trans('quiz.achievements') }}</a>--}}
+{{--                    </li>--}}
 
-                    <li class="mt-5">
-                        <a href="/certificate_validation">{{ trans('site.certificate_validation') }}</a>
-                    </li>
+{{--                    <li class="mt-5">--}}
+{{--                        <a href="/certificate_validation">{{ trans('site.certificate_validation') }}</a>--}}
+{{--                    </li>--}}
 
-                    <li class="mt-5 {{ (request()->is('panel/certificates/webinars')) ? 'active' : '' }}">
-                        <a href="/panel/certificates/webinars">{{ trans('update.course_certificates') }}</a>
-                    </li>
+{{--                    <li class="mt-5 {{ (request()->is('panel/certificates/webinars')) ? 'active' : '' }}">--}}
+{{--                        <a href="/panel/certificates/webinars">{{ trans('update.course_certificates') }}</a>--}}
+{{--                    </li>--}}
 
-                </ul>
-            </div>
-        </li>
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        </li>--}}
 
         @if($authUser->checkCanAccessToStore())
             <li class="sidenav-item {{ (request()->is('panel/store') or request()->is('panel/store/*')) ? 'sidenav-item-active' : '' }}">
