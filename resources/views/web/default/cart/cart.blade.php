@@ -139,10 +139,10 @@
                     <section class="mt-45">
                         <h3 class="section-title">{{ trans('cart.coupon_code') }}</h3>
                         <div class="rounded-sm shadow mt-20 py-25 px-20">
-                            <p class="text-gray font-14">{{ trans('cart.coupon_code_hint') }}</p>
+                            <p style="font-weight: 500" class="text-gray font-14">{{ trans('cart.coupon_code_hint') }}</p>
 
                             @if(!empty($userGroup) and !empty($userGroup->discount))
-                                <p class="text-gray mt-25">{{ trans('cart.in_user_group',['group_name' => $userGroup->name , 'percent' => $userGroup->discount]) }}</p>
+                                <p style="font-weight: 500" class="text-gray mt-5 font-14">{{ trans('cart.in_user_group', ['group_name' => $userGroup->name , 'percent' => $userGroup->discount]) }}</p>
                             @endif
 
                             <form action="/carts/coupon/validate" method="Post">

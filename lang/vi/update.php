@@ -2129,5 +2129,5 @@ return [
     'admin_registration_packages_ai_content_access_hint' => 'Kích hoạt quyền truy cập trình tạo nội dung AI cho gói này',
     'enable_ai_content' => 'َKích hoạt Trình tạo Nội dung AI',
     'admin_user_edit_enable_ai_content_hint' => 'Người dùng có thể sử dụng trình tạo nội dung AI',
-
+    'mobile' => 'Số điện thoại',
 ];
